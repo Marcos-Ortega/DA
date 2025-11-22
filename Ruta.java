@@ -1,11 +1,11 @@
 public class Ruta {
-    private int numRuta;
+    private String numRuta;
     private String ciudadOrigen;
     private String ciudadDestino;
     private double distanciaKm;
     private boolean internacional;
 
-    Ruta(int numRuta, String ciudadOrigen, String ciudadDestino, double distanciaKm, boolean internacional) {
+    Ruta(String numRuta, String ciudadOrigen, String ciudadDestino, double distanciaKm, boolean internacional) {
         this.numRuta = numRuta;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
@@ -13,11 +13,12 @@ public class Ruta {
         this.internacional = internacional;
     }
 
-    Ruta(int numRuta) {
+    Ruta(String numRuta) {
         this.numRuta = numRuta;
         this.ciudadOrigen = "";
         this.ciudadDestino = "";
         this.distanciaKm = 0;
+        this.internacional=false;
     }
     
 }

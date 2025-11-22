@@ -1,11 +1,11 @@
 public class Avion {
-    private int id;
+    private String id;
     private String modelo;
     private int cantAsientos;
     private int cantVuelos;
     private double kmRec;  
 
-    Avion(int id, String modelo, int cantAsientos,int cantVuelos, double kmRec) {
+    Avion(String id, String modelo, int cantAsientos,int cantVuelos, double kmRec) {
         this.id = id;
         this.modelo = modelo;
         this.cantAsientos = cantAsientos;
@@ -13,7 +13,7 @@ public class Avion {
         this.kmRec = kmRec;
     }
 
-    Avion(int id, String modelo, int cantAsientos) {
+    Avion(String id, String modelo, int cantAsientos) {
         this.id = id;
         this.modelo = modelo;
         this.cantAsientos = cantAsientos;
@@ -21,7 +21,7 @@ public class Avion {
         this.kmRec = 0;
     }
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
