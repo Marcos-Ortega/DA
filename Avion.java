@@ -5,14 +5,8 @@ public class Avion {
     private int cantVuelos;
     private double kmRec;  
 
-    Avion(String id, String modelo, int cantAsientos,int cantVuelos, double kmRec) {
-        this.id = id;
-        this.modelo = modelo;
-        this.cantAsientos = cantAsientos;
-        this.cantVuelos = cantVuelos;
-        this.kmRec = kmRec;
-    }
-
+    //Constructor
+    //constructor vacio
     Avion(String id) {
         this.id = id;
         this.modelo = "";
@@ -21,6 +15,14 @@ public class Avion {
         this.kmRec = 0.0;
     }
 
+    Avion(String id, String modelo, int cantAsientos,int cantVuelos, double kmRec) {
+        this.id = id;
+        this.modelo = modelo;
+        this.cantAsientos = cantAsientos;
+        this.cantVuelos = cantVuelos;
+        this.kmRec = kmRec;
+    }
+    // Observadores
     public String getId() {
         return this.id;
     }

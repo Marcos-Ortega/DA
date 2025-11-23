@@ -10,6 +10,7 @@ public class Vuelo {
     private boolean realizado;    
 
     //Constructuroes
+    //constructor vacio
     Vuelo(String nroVuelo) {
         this.nroVuelo = nroVuelo;
         this.idAvion = null;
