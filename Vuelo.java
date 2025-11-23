@@ -5,7 +5,6 @@ public class Vuelo {
     private Ruta idRuta;        
     private String dia;           
     private String hora;          
-
     private int cantPasajeros;    
     private boolean realizado;    
 
@@ -30,7 +29,7 @@ public class Vuelo {
         this.realizado = false;
     }
 
-    //get
+    //Obseravores
     public String getNroVuelo() { 
         return this.nroVuelo; 
     }
@@ -44,21 +43,22 @@ public class Vuelo {
     }
 
     public String getDia() { 
-        return dia; 
+        return this.dia; 
     }
 
     public String getHora() { 
-        return hora; 
+        return this.hora; 
     }
 
     public int getCantPasajeros() { 
-        return cantPasajeros; 
-    }
-    //set
-    public void setNroVuelo(String nroVuelo) { 
-        this.nroVuelo = nroVuelo; 
+        return this.cantPasajeros; 
     }
 
+    public boolean getRealizado(){
+        return this.realizado;
+    }
+
+    //Modificadores
     public void setIdAvion(Avion idAvion) { 
         this.idAvion = idAvion; 
     }
@@ -86,6 +86,7 @@ public class Vuelo {
     public void setRealizado(boolean realizado) { 
         this.realizado = realizado; 
     }
+
     //propio del tipo
     public String toString() {
         return "Vuelo: " + nroVuelo + "  Avion: " + idAvion + "  Ruta: " + idRuta + 

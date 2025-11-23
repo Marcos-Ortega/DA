@@ -22,6 +22,7 @@ public class Avion {
         this.cantVuelos = cantVuelos;
         this.kmRec = kmRec;
     }
+
     // Observadores
     public String getId() {
         return this.id;
@@ -43,15 +44,7 @@ public class Avion {
         return this.cantVuelos;
     }
 
-    public String toString() {
-        return this.id + " " + this.modelo + " " + this.cantAsientos + " " + this.kmRec+ " " + this.cantVuelos;
-
-    }
-
-    public boolean equals(Avion unAvion) {
-        return this.id == unAvion.id;
-    }
-
+    //Modificadores
     public void setKmRec(double km) {
         this.kmRec = km;
     }
@@ -62,6 +55,16 @@ public class Avion {
 
     public void setCantAsientos(int cant) {
         this.cantAsientos = cant;
+    }
+
+    //propios del tipo
+    public String toString() {
+        return this.id + " " + this.modelo + " " + this.cantAsientos + " " + this.kmRec+ " " + this.cantVuelos;
+
+    }
+
+    public boolean equals(Avion unAvion) {
+        return this.id.equals(unAvion);
     }
 
 }
