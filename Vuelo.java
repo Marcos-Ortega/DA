@@ -1,5 +1,5 @@
 public class Vuelo {
-    //aTRIBUTOS
+    //Atributos
     private String nroVuelo;      
     private Avion idAvion;       
     private Ruta idRuta;        
@@ -19,14 +19,14 @@ public class Vuelo {
         this.cantPasajeros = 0;
         this.realizado = false;
     }
-    Vuelo(String nroVuelo, Avion idAvion, Ruta idRuta, String dia, String hora, int cantPasajeros) {
-        this.nroVuelo = nroVuelo;
-        this.idAvion = idAvion;
-        this.idRuta = idRuta;
-        this.dia = dia;
-        this.hora = hora;
-        this.cantPasajeros = cantPasajeros;
-        this.realizado = false;
+    Vuelo(String elNroVuelo, Avion elIdAvion, Ruta elIdRuta, String elDia, String laHora, int laCantPasajeros, boolean fueRealizado) {
+        this.nroVuelo = elNroVuelo;
+        this.idAvion = elIdAvion;
+        this.idRuta = elIdRuta;
+        this.dia = elDia;
+        this.hora = laHora;
+        this.cantPasajeros = laCantPasajeros;
+        this.realizado = fueRealizado;
     }
 
     //Obseravores
@@ -83,14 +83,14 @@ public class Vuelo {
         return realizado; 
     }
 
-    public void setRealizado(boolean realizado) { 
-        this.realizado = realizado; 
+    public void setRealizado(boolean fueRealizado) { 
+        this.realizado = fueRealizado; 
     }
 
     //propio del tipo
     public String toString() {
         return "Vuelo: " + nroVuelo + "  Avion: " + idAvion + "  Ruta: " + idRuta + 
-               "  " + dia + " " + hora + "hs"+" Pasajeros: " + cantPasajeros + "  Estado: " +(realizado);
+               "  " + dia + " " + hora + "hs"+" Pasajeros: " + cantPasajeros + "  Estado: " +realizado;
     }
 
     public boolean equals(Vuelo otroVuelo) {

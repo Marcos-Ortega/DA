@@ -15,12 +15,12 @@ public class Avion {
         this.kmRec = 0.0;
     }
 
-    Avion(String id, String modelo, int cantAsientos,int cantVuelos, double kmRec) {
-        this.id = id;
-        this.modelo = modelo;
-        this.cantAsientos = cantAsientos;
-        this.cantVuelos = cantVuelos;
-        this.kmRec = kmRec;
+    Avion(String elId, String elModelo, int laCantAsientos,int laCantVuelos, double km) {
+        this.id = elId;
+        this.modelo = elModelo;
+        this.cantAsientos = laCantAsientos;
+        this.cantVuelos = laCantVuelos;
+        this.kmRec = km;
     }
 
     // Observadores
@@ -49,12 +49,12 @@ public class Avion {
         this.kmRec = km;
     }
 
-    public void setCantVuelos(int vuelo) {
-        this.cantVuelos = vuelo;
+    public void setCantVuelos(int laCantVuelos) {
+        this.cantVuelos = laCantVuelos;
     }
 
-    public void setCantAsientos(int cant) {
-        this.cantAsientos = cant;
+    public void setCantAsientos(int laCantAsientos) {
+        this.cantAsientos = laCantAsientos;
     }
 
     //propios del tipo
