@@ -1,8 +1,8 @@
 public class Vuelo {
     //aTRIBUTOS
     private String nroVuelo;      
-    private String idAvion;       
-    private String idRuta;        
+    private Avion idAvion;       
+    private Ruta idRuta;        
     private String dia;           
     private String hora;          
 
@@ -10,7 +10,7 @@ public class Vuelo {
     private boolean realizado;    
 
     //Constructuroes
-    Vuelo(String nroVuelo, String idAvion, String idRuta, String dia, String hora) {
+    Vuelo(String nroVuelo, Avion idAvion, Ruta idRuta, String dia, String hora) {
         this.nroVuelo = nroVuelo;
         this.idAvion = idAvion;
         this.idRuta = idRuta;
@@ -19,7 +19,7 @@ public class Vuelo {
         this.cantPasajeros = 0;
         this.realizado = false;
     }
-    Vuelo(String nroVuelo, String idAvion, String idRuta, String dia, String hora, int cantPasajeros) {
+    Vuelo(String nroVuelo, Avion idAvion, Ruta idRuta, String dia, String hora, int cantPasajeros) {
         this.nroVuelo = nroVuelo;
         this.idAvion = idAvion;
         this.idRuta = idRuta;
@@ -31,15 +31,15 @@ public class Vuelo {
 
     //get
     public String getNroVuelo() { 
-        return nroVuelo; 
+        return this.nroVuelo; 
     }
 
-    public String getIdAvion() {
-        return idAvion; 
+    public Avion getIdAvion() {
+        return this.idAvion; 
     }
 
-    public String getIdRuta() { 
-        return idRuta; 
+    public Ruta getIdRuta() { 
+        return this.idRuta; 
     }
 
     public String getDia() { 
@@ -58,11 +58,11 @@ public class Vuelo {
         this.nroVuelo = nroVuelo; 
     }
 
-    public void setIdAvion(String idAvion) { 
+    public void setIdAvion(Avion idAvion) { 
         this.idAvion = idAvion; 
     }
 
-    public void setIdRuta(String idRuta) { 
+    public void setIdRuta(Ruta idRuta) { 
         this.idRuta = idRuta; 
     }
 
@@ -90,4 +90,9 @@ public class Vuelo {
         return "Vuelo: " + nroVuelo + "  Avion: " + idAvion + "  Ruta: " + idRuta + 
                "  " + dia + " " + hora + "hs"+" Pasajeros: " + cantPasajeros + "  Estado: " +(realizado);
     }
+
+    public boolean equals(Vuelo otroVuelo) {
+        return this.nroVuelo.equals(otroVuelo);
+    }
+     
 }
