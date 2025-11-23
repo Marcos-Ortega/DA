@@ -14,21 +14,6 @@ public class testPrograma {
         cargarAvion(avion);
         cargarRuta(ruta);
         cargarVuelo(vuelo, avion, ruta);
-         // --- IMPRIMIR PARA VER SI CARGÓ BIEN ---
-        System.out.println("=== AVIONES CARGADOS ===");
-        for (Avion a : avion) {
-            System.out.println(a);
-        }
-
-        System.out.println("\n=== RUTAS CARGADAS ===");
-        for (Ruta r : ruta) {
-            System.out.println(r);
-        }
-
-        System.out.println("\n=== VUELOS CARGADOS ===");
-        for (Vuelo v : vuelo) {
-            System.out.println(v);
-        }
     }
 
     public static Avion buscarIdAvion(List<Avion> aviones, String idA) {
