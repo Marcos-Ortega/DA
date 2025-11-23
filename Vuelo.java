@@ -10,12 +10,12 @@ public class Vuelo {
     private boolean realizado;    
 
     //Constructuroes
-    Vuelo(String nroVuelo, Avion idAvion, Ruta idRuta, String dia, String hora) {
+    Vuelo(String nroVuelo) {
         this.nroVuelo = nroVuelo;
-        this.idAvion = idAvion;
-        this.idRuta = idRuta;
-        this.dia = dia;
-        this.hora = hora;
+        this.idAvion = null;
+        this.idRuta = null;
+        this.dia = "";
+        this.hora = "";
         this.cantPasajeros = 0;
         this.realizado = false;
     }

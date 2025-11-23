@@ -13,12 +13,12 @@ public class Avion {
         this.kmRec = kmRec;
     }
 
-    Avion(String id, String modelo, int cantAsientos) {
+    Avion(String id) {
         this.id = id;
-        this.modelo = modelo;
-        this.cantAsientos = cantAsientos;
+        this.modelo = "";
+        this.cantAsientos = 0;
         this.cantVuelos = 0;
-        this.kmRec = 0;
+        this.kmRec = 0.0;
     }
 
     public String getId() {
