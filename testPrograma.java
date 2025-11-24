@@ -32,6 +32,45 @@ public class testPrograma {
             System.out.println(v);
         }*/
     }
+    public static int cambioDiaAFila(String dia){
+        int i=0;
+        dia=dia.toLowerCase();
+        switch (dia) {
+            case "lunes":
+                i=0;
+                break;
+            case "martes":
+                i=1;
+                break;
+            case "miercoles":
+                i=2;
+                break;
+            case "jueves":
+                i=3;
+                break;
+            case "viernes":
+                i=4;
+                break;
+            case "sabado":
+                i=5;
+                break;
+            case "domingo":
+                i=6;
+                break;
+        
+            default:
+                break;
+        }
+        return i;
+    }
+    public static int horaAColumna(String hora){
+    String h = hora.substring(0, 2); 
+    int num=0, horaV=0; 
+    num = Integer.parseInt(h);   
+    horaV= num - 8;  
+    return horaV;               
+    }
+
     public static Vuelo[][] cargaMaVuelo(Vuelo [][] matVuelo){
         Vuelo vuelo;
 
