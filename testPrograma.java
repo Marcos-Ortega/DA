@@ -15,7 +15,9 @@ public class testPrograma {
         cargarRuta(ruta);
         cargarVuelo(vuelo, avion, ruta);
         Vuelo [][] matVuelo=new Vuelo[7][15];
-        matVuelo=cargaMatVuelo(matVuelo);
+        matVuelo=cargaMatVuelo(matVuelo, vuelo);
+        //mostrarMatVuelo(matVuelo);
+        
         /*   // --- IMPRIMIR PARA VER SI CARGÓ BIEN ---
         System.out.println("=== AVIONES CARGADOS ===");
         for (Avion a : avion) {
@@ -32,7 +34,29 @@ public class testPrograma {
             System.out.println(v);
         }*/
     }
-    public static int cambioDiaAFila(String dia){
+    //sout para ver los vuelos en mi matriz
+    /*public static void mostrarMatVuelo(Vuelo[][] matVuelo) {
+
+    System.out.println("\n----- MATRIZ DE VUELOS -----\n");
+
+    for (int f = 0; f < matVuelo.length; f++) {
+        System.out.print("Día " + f + ": ");
+
+        for (int c = 0; c < matVuelo[0].length; c++) {
+
+            if (matVuelo[f][c] != null) {
+                System.out.print(" | " + matVuelo[f][c].getNroVuelo() + " ");
+            } else {
+                System.out.print(" | ---- ");
+            }
+        }
+        System.out.println(" |");
+    }
+
+    System.out.println("\n----------------------------\n");
+}*/
+
+    public static int DiaAFila(String dia){
         int diaV=0;
         dia=dia.toLowerCase();
         switch (dia) {
@@ -64,17 +88,47 @@ public class testPrograma {
         return diaV;
     }
     public static int horaAColumna(String hora){
-    String h = hora.substring(0, 2); 
-    int num=0, horaV=0; 
-    num = Integer.parseInt(h);   
-    horaV= num - 8;  
-    return horaV;               
+        String h = hora.substring(0, 2); 
+        int num=0, horaV=0; 
+        num = Integer.parseInt(h);   
+        horaV= num - 8;  
+        return horaV;               
+    }
+    public static boolean avionVoloDia(Vuelo[][] matVuelo, int filaDia, Avion avion) {
+        boolean yaVolo = false;
+        Vuelo existeV;
+        Avion idAvion;
+        for (int c = 0; c < 15; c++) {
+            existeV=matVuelo[filaDia][c];
+            if (existeV!=null) {
+                idAvion=existeV.getIdAvion();
+                if(idAvion!=null){
+                    if (idAvion.equals(avion)) {
+                        yaVolo=true;
+                    }
+                }
+            }        
+        }
+        return yaVolo;
     }
 
-    public static Vuelo[][] cargaMaVuelo(Vuelo [][] matVuelo){
-        Vuelo vuelo;
+    public static Vuelo[][] cargaMatVuelo(Vuelo [][] matVuelo, List<Vuelo>vuelos){
+        Vuelo v;
+        int fila=0, colum=0;
+        boolean yaVolo=false;
+        for(int i=0;i<vuelos.size();i++){
+            v=vuelos.get(i);
+            fila= DiaAFila(v.getDia());
+            colum=horaAColumna(v.getHora());
+            if (matVuelo[fila][colum]==null) {
+                yaVolo=avionVoloDia(matVuelo, fila,v.getIdAvion());
+                if(!yaVolo){
+                    matVuelo[fila][colum]=v;
+                }
+            }
+        }
 
-        return vuelo;
+        return matVuelo;
     }
 
     public static Avion buscarIdAvion(List<Avion> aviones, String idA) {

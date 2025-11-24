@@ -94,7 +94,7 @@ public class Vuelo {
     }
 
     public boolean equals(Vuelo otroVuelo) {
-        return this.nroVuelo.equals(otroVuelo);
+        return this.nroVuelo.equals(otroVuelo.getNroVuelo());
     }
      
 }

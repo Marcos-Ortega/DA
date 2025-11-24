@@ -61,7 +61,7 @@ public class Ruta {
     }
 
     public boolean equals(Ruta OtraRuta){
-        return this.numRuta.equals(OtraRuta);
+        return this.numRuta.equals(OtraRuta.getNumRuta());
     }
 
 }

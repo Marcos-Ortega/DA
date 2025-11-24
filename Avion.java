@@ -64,7 +64,7 @@ public class Avion {
     }
 
     public boolean equals(Avion unAvion) {
-        return this.id.equals(unAvion);
+        return this.id.equals(unAvion.getId());
     }
 
 }
