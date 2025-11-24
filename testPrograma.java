@@ -33,35 +33,35 @@ public class testPrograma {
         }*/
     }
     public static int cambioDiaAFila(String dia){
-        int i=0;
+        int diaV=0;
         dia=dia.toLowerCase();
         switch (dia) {
             case "lunes":
-                i=0;
+                diaV=0;
                 break;
             case "martes":
-                i=1;
+                diaV=1;
                 break;
             case "miercoles":
-                i=2;
+                diaV=2;
                 break;
             case "jueves":
-                i=3;
+                diaV=3;
                 break;
             case "viernes":
-                i=4;
+                diaV=4;
                 break;
             case "sabado":
-                i=5;
+                diaV=5;
                 break;
             case "domingo":
-                i=6;
+                diaV=6;
                 break;
         
             default:
                 break;
         }
-        return i;
+        return diaV;
     }
     public static int horaAColumna(String hora){
     String h = hora.substring(0, 2); 
