@@ -14,6 +14,8 @@ public class testPrograma {
         cargarAvion(avion);
         cargarRuta(ruta);
         cargarVuelo(vuelo, avion, ruta);
+        Vuelo [][] matVuelo=new Vuelo[7][15];
+        matVuelo=cargaMatVuelo(matVuelo);
         /*   // --- IMPRIMIR PARA VER SI CARGÓ BIEN ---
         System.out.println("=== AVIONES CARGADOS ===");
         for (Avion a : avion) {
@@ -29,6 +31,11 @@ public class testPrograma {
         for (Vuelo v : vuelo) {
             System.out.println(v);
         }*/
+    }
+    public static Vuelo[][] cargaMaVuelo(Vuelo [][] matVuelo){
+        Vuelo vuelo;
+
+        return vuelo;
     }
 
     public static Avion buscarIdAvion(List<Avion> aviones, String idA) {
