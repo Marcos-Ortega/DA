@@ -14,6 +14,21 @@ public class testPrograma {
         cargarAvion(avion);
         cargarRuta(ruta);
         cargarVuelo(vuelo, avion, ruta);
+        /*   // --- IMPRIMIR PARA VER SI CARGÓ BIEN ---
+        System.out.println("=== AVIONES CARGADOS ===");
+        for (Avion a : avion) {
+            System.out.println(a);
+        }
+
+        System.out.println("\n=== RUTAS CARGADAS ===");
+        for (Ruta r : ruta) {
+            System.out.println(r);
+        }
+
+        System.out.println("\n=== VUELOS CARGADOS ===");
+        for (Vuelo v : vuelo) {
+            System.out.println(v);
+        }*/
     }
 
     public static Avion buscarIdAvion(List<Avion> aviones, String idA) {
@@ -50,6 +65,14 @@ public class testPrograma {
             i++;
         }
         return ruta;
+    }
+    public static boolean esInter(String internacional){
+        boolean esInternacional=false;
+        String op= internacional.toLowerCase();
+        if (op.equals("si")) {
+            esInternacional=true;
+        }
+        return esInternacional;
     }
 
     private static void cargarAvion(List<Avion> avion) {
@@ -97,9 +120,10 @@ public class testPrograma {
                     String ciudadOrigen = bloque[1];
                     String ciudadDestino = bloque[2];
                     double distanciaKm = Double.parseDouble(bloque[3]); // uso Double.parseInt para cambiar el tipo de dato
-                    boolean internacional = Boolean.parseBoolean(bloque[4]); // uso Boolean.parseInt para cambiar el tipo de dato
+                    String internacional = bloque[4]; 
+                    boolean esInternacional= esInter(internacional); 
                     // Almaceno en la lista
-                    ruta.add(new Ruta(numRuta, ciudadOrigen, ciudadDestino, distanciaKm, internacional));
+                    ruta.add(new Ruta(numRuta, ciudadOrigen, ciudadDestino, distanciaKm, esInternacional));
                 }
             }
             lectorArchivo.close();
