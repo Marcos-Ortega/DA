@@ -13,7 +13,7 @@ public class testPrograma {
         List<Vuelo> vuelo = new ArrayList<>();
         cargarAvion(avion);
         cargarRuta(ruta);
-        cargarVuelo(vuelo, avion, ruta);
+        cargarVuelo(vuelo);
         Vuelo[][] matVuelo = new Vuelo[7][15];// defino matriz de vuelo
         matVuelo = cargaMatVuelo(matVuelo, vuelo);
         // mostrarMatVuelo(matVuelo);//llamo al sout para ver mi matriz de vuelo
@@ -107,10 +107,10 @@ public class testPrograma {
     }
 
     //modulo que me verifica que el avion vuele una sola vez al dia 
-    public static boolean avionVoloDia(Vuelo[][] matVuelo, int filaDia, Avion avion) {
+    public static boolean avionVoloDia(Vuelo[][] matVuelo, int filaDia, String avion) {
         boolean yaVolo = false;
         Vuelo existeV;
-        Avion idAvion;
+        String idAvion;
         for (int c = 0; c < 15; c++) {
             existeV = matVuelo[filaDia][c];
             if (existeV != null) {
@@ -143,44 +143,6 @@ public class testPrograma {
         }
 
         return matVuelo;
-    }
-
-    //modulo que me cambia el idAvion en string del txt a tipo avion con todos sus atributos
-    public static Avion buscarIdAvion(List<Avion> aviones, String idA) {
-        Avion avion = null;
-        int i = 0;
-        boolean encontrado = false;
-        String idAvion;
-        while ((i < aviones.size()) && (!encontrado)) {
-            avion = aviones.get(i);
-            idAvion = avion.getId();
-            if (!(idAvion.equals(idA))) {
-                avion = null;
-            } else {
-                encontrado = true;
-            }
-            i++;
-        }
-        return avion;
-    }
-
-    //modulo que me cambia el idruta en string del txt a tipo ruta con todos sus atributos
-    public static Ruta buscarIdRuta(List<Ruta> rutas, String idR) {
-        Ruta ruta = null;
-        int i = 0;
-        boolean encontrado = false;
-        String idAvion;
-        while ((i < rutas.size()) && (!encontrado)) {
-            ruta = rutas.get(i);
-            idAvion = ruta.getNumRuta();
-            if (!(idAvion.equals(idR))) {
-                ruta = null;
-            } else {
-                encontrado = true;
-            }
-            i++;
-        }
-        return ruta;
     }
 
     //modulo para ver si es internacional
@@ -255,7 +217,7 @@ public class testPrograma {
 
     }
 
-    private static void cargarVuelo(List<Vuelo> vuelo, List<Avion> avion, List<Ruta> ruta) {
+    private static void cargarVuelo(List<Vuelo> vuelo) {
         String nombreArchivoEntrada = "Vuelos.txt";// guardo el nombre del archivo en un string
         // gestion de errores
         try {
@@ -267,12 +229,8 @@ public class testPrograma {
                 if (bloque.length == 5) { // valido si la cadena del bloque tiene todos los datos
 
                     String nroVuelo = bloque[0];
-                    //guardo el string del txt y llamo al moduo para cambiarlo a tipo avion
-                    String idA = bloque[1];
-                    Avion idAvion = buscarIdAvion(avion, idA);
-                    //guardo el string del txt y llamo al moduo para cambiarlo a tipo ruta
-                    String idR = bloque[2];
-                    Ruta idRuta = buscarIdRuta(ruta, idR);
+                    String idAvion = bloque[1];
+                    String idRuta = bloque[2];
                     String dia = bloque[3];
                     String hora = bloque[4];
 

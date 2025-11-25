@@ -1,8 +1,8 @@
 public class Vuelo {
     //Atributos
     private String nroVuelo;      
-    private Avion idAvion;       
-    private Ruta idRuta;        
+    private String idAvion;       
+    private String idRuta;        
     private String dia;           
     private String hora;          
     //private int cantPasajeros;    
@@ -19,7 +19,7 @@ public class Vuelo {
         //this.cantPasajeros = 0;
         //this.realizado = false;
     }
-    Vuelo(String elNroVuelo, Avion elIdAvion, Ruta elIdRuta, String elDia, String laHora/* , int laCantPasajeros, boolean fueRealizado*/) {
+    Vuelo(String elNroVuelo, String elIdAvion, String elIdRuta, String elDia, String laHora/* , int laCantPasajeros, boolean fueRealizado*/) {
         this.nroVuelo = elNroVuelo;
         this.idAvion = elIdAvion;
         this.idRuta = elIdRuta;
@@ -34,11 +34,11 @@ public class Vuelo {
         return this.nroVuelo; 
     }
 
-    public Avion getIdAvion() {
+    public String getIdAvion() {
         return this.idAvion; 
     }
 
-    public Ruta getIdRuta() { 
+    public String getIdRuta() { 
         return this.idRuta; 
     }
 
@@ -59,11 +59,11 @@ public class Vuelo {
     }*/
 
     //Modificadores
-    public void setIdAvion(Avion idAvion) { 
+    public void setIdAvion(String idAvion) { 
         this.idAvion = idAvion; 
     }
 
-    public void setIdRuta(Ruta idRuta) { 
+    public void setIdRuta(String idRuta) { 
         this.idRuta = idRuta; 
     }
 
