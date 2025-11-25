@@ -16,55 +16,58 @@ public class testPrograma {
         cargarVuelo(vuelo);
         Vuelo[][] matVuelo = new Vuelo[7][15];// defino matriz de vuelo
         matVuelo = cargaMatVuelo(matVuelo, vuelo);
-        // mostrarMatVuelo(matVuelo);//llamo al sout para ver mi matriz de vuelo
-        // mostrarDatosCargados(avion, ruta, vuelo);//llamo sout para ver si lee bien los txt
+        // mostrarMatVuelo(matVuelo);// llamo al sout para ver mi matriz de vuelo
+        // mostrarDatosCargados(avion, ruta, vuelo);//llamo sout para ver si lee bien
+        // los txt
 
     }
 
-    //modulo para ver que lee bien los txt
-    /*public static void mostrarDatosCargados(List<Avion> aviones, List<Ruta> rutas, List<Vuelo> vuelos) {
-
-        System.out.println("=== AVIONES CARGADOS ===");
-        for (int i = 0; i < aviones.size(); i++) {
-            System.out.println(aviones.get(i));
-        }
-
-        System.out.println("\n=== RUTAS CARGADAS ===");
-        for (int i = 0; i < rutas.size(); i++) {
-            System.out.println(rutas.get(i));
-        }
-
-        System.out.println("\n=== VUELOS CARGADOS ===");
-        for (int i = 0; i < vuelos.size(); i++) {
-            System.out.println(vuelos.get(i));
-        }
-    }*/
-
-    // sout para ver los vuelos en mi matriz
+    // modulo para ver que lee bien los txt
     /*
-     * public static void mostrarMatVuelo(Vuelo[][] matVuelo) {
+     * public static void mostrarDatosCargados(List<Avion> aviones, List<Ruta>
+     * rutas, List<Vuelo> vuelos) {
      * 
-     * System.out.println("\n----- MATRIZ DE VUELOS -----\n");
+     * System.out.println("=== AVIONES CARGADOS ===");
+     * for (int i = 0; i < aviones.size(); i++) {
+     * System.out.println(aviones.get(i));
+     * }
      * 
-     * for (int f = 0; f < matVuelo.length; f++) {
-     * System.out.print("Día " + f + ": ");
+     * System.out.println("\n=== RUTAS CARGADAS ===");
+     * for (int i = 0; i < rutas.size(); i++) {
+     * System.out.println(rutas.get(i));
+     * }
      * 
-     * for (int c = 0; c < matVuelo[0].length; c++) {
-     * 
-     * if (matVuelo[f][c] != null) {
-     * System.out.print(" | " + matVuelo[f][c].getNroVuelo() + " ");
-     * } else {
-     * System.out.print(" | ---- ");
-     }
-     }
-     System.out.println(" |");
-     }
-     
-     System.out.println("\n----------------------------\n");
-     }
+     * System.out.println("\n=== VUELOS CARGADOS ===");
+     * for (int i = 0; i < vuelos.size(); i++) {
+     * System.out.println(vuelos.get(i));
+     * }
+     * }
      */
 
-    //modulo que me cambia los dias a filas 
+    // sout para ver los vuelos en mi matriz
+/* 
+    public static void mostrarMatVuelo(Vuelo[][] matVuelo) {
+
+        System.out.println("\n----- MATRIZ DE VUELOS -----\n");
+
+        for (int f = 0; f < matVuelo.length; f++) {
+            System.out.print("Día " + f + ": ");
+
+            for (int c = 0; c < matVuelo[0].length; c++) {
+
+                if (matVuelo[f][c] != null) {
+                    System.out.print(" | " + matVuelo[f][c].getNroVuelo() + " ");
+                } else {
+                    System.out.print(" | ---- ");
+                }
+            }
+            System.out.println(" |");
+        }
+
+        System.out.println("\n----------------------------\n");
+    } */
+
+    // modulo que me cambia los dias a filas
     public static int DiaAFila(String dia) {
         int diaV = 0;
         dia = dia.toLowerCase();
@@ -92,12 +95,13 @@ public class testPrograma {
                 break;
 
             default:
+                System.out.println("Dia no existe.");
                 break;
         }
         return diaV;
     }
 
-    //modulo que me cambia las horas a columnas
+    // modulo que me cambia las horas a columnas
     public static int horaAColumna(String hora) {
         String h = hora.substring(0, 2);
         int num = 0, horaV = 0;
@@ -106,7 +110,7 @@ public class testPrograma {
         return horaV;
     }
 
-    //modulo que me verifica que el avion vuele una sola vez al dia 
+    // modulo que me verifica que el avion vuele una sola vez al dia
     public static boolean avionVoloDia(Vuelo[][] matVuelo, int filaDia, String avion) {
         boolean yaVolo = false;
         Vuelo existeV;
@@ -125,27 +129,7 @@ public class testPrograma {
         return yaVolo;
     }
 
-    //modulo que me carga la matriz de vuelo con todas sus condiciones  
-    public static Vuelo[][] cargaMatVuelo(Vuelo[][] matVuelo, List<Vuelo> vuelos) {
-        Vuelo v;
-        int fila = 0, colum = 0;
-        boolean yaVolo = false;
-        for (int i = 0; i < vuelos.size(); i++) {
-            v = vuelos.get(i);
-            fila = DiaAFila(v.getDia());
-            colum = horaAColumna(v.getHora());
-            if (matVuelo[fila][colum] == null) {
-                yaVolo = avionVoloDia(matVuelo, fila, v.getIdAvion());
-                if (!yaVolo) {
-                    matVuelo[fila][colum] = v;
-                }
-            }
-        }
-
-        return matVuelo;
-    }
-
-    //modulo para ver si es internacional
+    // modulo para ver si es internacional
     public static boolean esInter(String internacional) {
         boolean esInternacional = false;
         String op = internacional.toLowerCase();
@@ -154,6 +138,57 @@ public class testPrograma {
         }
         return esInternacional;
     }
+    public static double distanciaVuelo(String idRuta,List<Ruta>ruta){
+        int i =0;
+        Ruta r;
+        boolean encontrado=false;
+        double distanciaKm = 0;
+        while(((i<ruta.size())&&(!encontrado))){
+            r=ruta.get(i);
+            if(idRuta.equals(r.getNumRuta())){
+                encontrado=true;
+                distanciaKm=r.getDistanciaKm();
+            }
+            i++;
+        }
+        return distanciaKm;
+    }
+
+    public static void cambiarEstadoVuelo(String idVueloAct, List<Vuelo>vuelo, List<Ruta>ruta,List<Avion>avion){
+        int i =0;
+        Vuelo v;
+        String idAvion,idRuta;
+        boolean encontrado = false;
+        double cantidadKm;
+        while (((i<vuelo.size())&&(!encontrado))) {
+            v=vuelo.get(i);
+            idAvion=v.getIdAvion();
+            idRuta=v.getIdRuta();
+            if(idVueloAct.equals(v.getNroVuelo())){
+                encontrado=true;
+                v.setRealizado(true);
+                cantidadKm = distanciaVuelo(idRuta, ruta);
+                actAvion(idAvion,avion,cantidadKm);
+            }
+            i++;
+        }
+    }
+    public static void actAvion(String idAvion,List<Avion>avion, double cantidadKm){
+        int i =0;
+        Avion v;
+        boolean encontrado=false;
+        while(((i<avion.size())&&(!encontrado))){
+            v=avion.get(i);
+            if(idAvion.equals(v.getId())){
+                encontrado=true;
+                v.sumarKmRec(cantidadKm);
+                v.sumarVuelo();
+            }
+            i++;   
+        }
+    }
+    
+    // ------------------CARGAR COSAS------------------
 
     private static void cargarAvion(List<Avion> avion) {
         String nombreArchivoEntrada = "Aviones.txt";// guardo el nombre del archivo en un string
@@ -199,8 +234,10 @@ public class testPrograma {
                     String numRuta = (bloque[0]);
                     String ciudadOrigen = bloque[1];
                     String ciudadDestino = bloque[2];
-                    double distanciaKm = Double.parseDouble(bloque[3]); // uso Double.parseInt para cambiar el tipo de dato
-                    //guardo el string del txt y llamo al moduo para devolver el v/f de internacional
+                    double distanciaKm = Double.parseDouble(bloque[3]); // uso Double.parseInt para cambiar el tipo de
+                                                                        // dato
+                    // guardo el string del txt y llamo al moduo para devolver el v/f de
+                    // internacional
                     String internacional = bloque[4];
                     boolean esInternacional = esInter(internacional);
                     // Almaceno en la lista
@@ -235,7 +272,7 @@ public class testPrograma {
                     String hora = bloque[4];
 
                     // Almaceno en la lista
-                    vuelo.add(new Vuelo(nroVuelo, idAvion, idRuta, dia, hora));
+                    vuelo.add(new Vuelo(nroVuelo, idAvion, idRuta, dia, hora, false));
                 }
             }
             lectorArchivo.close();
@@ -246,5 +283,25 @@ public class testPrograma {
             System.out.println("Error al leer el archivo " + error.getMessage());
         }
 
+    }
+
+    // modulo que me carga la matriz de vuelo con todas sus condiciones
+    public static Vuelo[][] cargaMatVuelo(Vuelo[][] matVuelo, List<Vuelo> vuelos) {
+        Vuelo v;
+        int fila = 0, colum = 0;
+        boolean yaVolo = false;
+        for (int i = 0; i < vuelos.size(); i++) {
+            v = vuelos.get(i);
+            fila = DiaAFila(v.getDia());
+            colum = horaAColumna(v.getHora());
+            if (matVuelo[fila][colum] == null) {
+                yaVolo = avionVoloDia(matVuelo, fila, v.getIdAvion());
+                if (!yaVolo) {
+                    matVuelo[fila][colum] = v;
+                }
+            }
+        }
+
+        return matVuelo;
     }
 }

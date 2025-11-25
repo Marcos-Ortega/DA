@@ -5,8 +5,7 @@ public class Vuelo {
     private String idRuta;        
     private String dia;           
     private String hora;          
-    //private int cantPasajeros;    
-    //private boolean realizado;    
+    private boolean realizado;    
 
     //Constructuroes
     //constructor vacio
@@ -16,17 +15,15 @@ public class Vuelo {
         this.idRuta = null;
         this.dia = "";
         this.hora = "";
-        //this.cantPasajeros = 0;
-        //this.realizado = false;
+        this.realizado = false;
     }
-    Vuelo(String elNroVuelo, String elIdAvion, String elIdRuta, String elDia, String laHora/* , int laCantPasajeros, boolean fueRealizado*/) {
+    Vuelo(String elNroVuelo, String elIdAvion, String elIdRuta, String elDia, String laHora, boolean fueRealizado) {
         this.nroVuelo = elNroVuelo;
         this.idAvion = elIdAvion;
         this.idRuta = elIdRuta;
         this.dia = elDia;
         this.hora = laHora;
-        //this.cantPasajeros = laCantPasajeros;
-        //this.realizado = fueRealizado;
+        this.realizado = fueRealizado;
     }
 
     //Obseravores
@@ -50,13 +47,9 @@ public class Vuelo {
         return this.hora; 
     }
 
-    /*public int getCantPasajeros() { 
-        return this.cantPasajeros; 
-    }
-
     public boolean getRealizado(){
         return this.realizado;
-    }*/
+    }
 
     //Modificadores
     public void setIdAvion(String idAvion) { 
@@ -75,22 +68,14 @@ public class Vuelo {
         this.hora = hora; 
     }
 
-    /*public void setCantPasajeros(int cantPasajeros) { 
-        this.cantPasajeros = cantPasajeros; 
-    }
-
-    public boolean isRealizado() { 
-        return realizado; 
-    }
-
     public void setRealizado(boolean fueRealizado) { 
         this.realizado = fueRealizado; 
-    }*/
+    }
 
     //propio del tipo
     public String toString() {
         return "Vuelo: " + nroVuelo + "  Avion: " + idAvion + "  Ruta: " + idRuta + 
-               "  " + dia + " " + hora + "hs"/*+" Pasajeros: " + cantPasajeros + "  Estado: " +realizado*/;
+               "  " + dia + " " + hora + "hs" + "  Estado: " +realizado;
     }
 
     public boolean equals(Vuelo otroVuelo) {
