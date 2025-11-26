@@ -4,10 +4,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Scanner;
 public class testPrograma {
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int opcion;
+        String idVuelo, idAvion;
         List<Avion> avion = new ArrayList<>(); /* creo lista de arreglo de tipo Avion con el nombre de avion */
         List<Ruta> ruta = new ArrayList<>(); /* creo lista de arreglo de tipo Ruta con el nombre de ruta */
         List<Vuelo> vuelo = new ArrayList<>();
@@ -20,6 +23,50 @@ public class testPrograma {
         // mostrarDatosCargados(avion, ruta, vuelo);//llamo sout para ver si lee bien
         // los txt
 
+        do {
+        // Menu de opciones
+        System.out.println("Ingresar opcion ");
+        System.out.println("1-Agregar nuevo avion.");
+        System.out.println("2-Agregar nuevo vuelo");
+        System.out.println("3-Marcar aterrizaje de vuelo.");
+        System.out.println("4-Ver promedio de pasajeros.");
+        System.out.println("5-Mostrar lista de vuelos ordenada.");
+        System.out.println("6-Mostrar datos de un avion.");
+        System.out.println("7-Ver cuando le toca el proximo mantenimiento a un cierto avion");
+        System.out.println("8-Salir");
+        opcion = sc.nextInt();
+        sc.nextLine();
+        switch (opcion) {
+            case 1:
+                
+                break;
+            case 2:
+                
+                break;
+            case 3 :
+                    System.out.println("---------Cambiar Estado de vuelo--------------");
+                    System.out.println("Ingrese el id del vuelo: ");
+                    idVuelo = sc.nextLine();
+                    cambiarEstadoVuelo(idVuelo, vuelo, ruta,avion);
+
+                break;
+            case 4:
+                
+                break;
+            case 5:
+                
+                break;
+            case 6:
+                    System.out.println("---------Mostrar datos de un avion--------------");
+                    System.out.println("Ingrese el id del Avion: ");
+                    idAvion = sc.nextLine();
+                    mostrarAvion(idAvion,avion);
+                break;
+            default:
+                System.out.println("Opcion Invalida. Ingresar opcion valida");
+                break;
+        }
+        } while (opcion != 8);
     }
 
     // modulo para ver que lee bien los txt
@@ -138,6 +185,7 @@ public class testPrograma {
         }
         return esInternacional;
     }
+    //Modulo para obtener la distancia del vuelo.
     public static double distanciaVuelo(String idRuta,List<Ruta>ruta){
         int i =0;
         Ruta r;
@@ -154,6 +202,7 @@ public class testPrograma {
         return distanciaKm;
     }
 
+    //modulo para cambiar el estado del vuelo
     public static void cambiarEstadoVuelo(String idVueloAct, List<Vuelo>vuelo, List<Ruta>ruta,List<Avion>avion){
         int i =0;
         Vuelo v;
@@ -169,10 +218,15 @@ public class testPrograma {
                 v.setRealizado(true);
                 cantidadKm = distanciaVuelo(idRuta, ruta);
                 actAvion(idAvion,avion,cantidadKm);
+                System.out.println("Vuelo actualizado con exito!");
             }
             i++;
         }
+        if(!encontrado){
+            System.out.println("Vuelo no encontrado");
+        }
     }
+    //modulo para actualizar los km y los vuelos del  avion
     public static void actAvion(String idAvion,List<Avion>avion, double cantidadKm){
         int i =0;
         Avion v;
@@ -188,6 +242,23 @@ public class testPrograma {
         }
     }
     
+    //Mostrar datos de un avion
+    public static void mostrarAvion(String idAvion, List<Avion>avion){
+        int i =0;
+        Avion av;
+        boolean encontrado = false;
+        while (((i<avion.size())&&(!encontrado))) {
+            av=avion.get(i);
+            if(idAvion.equals(av.getId())){
+                encontrado=true;
+                System.out.println(av.toString());
+            }
+            i++;
+        }
+        if(!encontrado){
+            System.out.println("Avion no encontrado");
+        }
+    }
     // ------------------CARGAR COSAS------------------
 
     private static void cargarAvion(List<Avion> avion) {
