@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 public class testPrograma {
 
     public static void main(String[] args) {
@@ -24,48 +25,51 @@ public class testPrograma {
         // los txt
 
         do {
-        // Menu de opciones
-        System.out.println("Ingresar opcion ");
-        System.out.println("1-Agregar nuevo avion.");
-        System.out.println("2-Agregar nuevo vuelo");
-        System.out.println("3-Marcar aterrizaje de vuelo.");
-        System.out.println("4-Ver promedio de pasajeros.");
-        System.out.println("5-Mostrar lista de vuelos ordenada.");
-        System.out.println("6-Mostrar datos de un avion.");
-        System.out.println("7-Ver cuando le toca el proximo mantenimiento a un cierto avion");
-        System.out.println("8-Salir");
-        opcion = sc.nextInt();
-        sc.nextLine();
-        switch (opcion) {
-            case 1:
-                
-                break;
-            case 2:
-                
-                break;
-            case 3 :
+            // Menu de opciones
+            System.out.println("Ingresar opcion ");
+            System.out.println("1-Agregar nuevo avion.");
+            System.out.println("2-Agregar nuevo vuelo");
+            System.out.println("3-Marcar aterrizaje de vuelo.");
+            System.out.println("4-Ver promedio de pasajeros.");
+            System.out.println("5-Mostrar lista de vuelos ordenada.");
+            System.out.println("6-Mostrar datos de un avion.");
+            System.out.println("7-Ver cuando le toca el proximo mantenimiento a un cierto avion");
+            System.out.println("8-Salir");
+            opcion = sc.nextInt();
+            sc.nextLine();
+            switch (opcion) {
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
                     System.out.println("---------Cambiar Estado de vuelo--------------");
                     System.out.println("Ingrese el id del vuelo: ");
                     idVuelo = sc.nextLine();
-                    cambiarEstadoVuelo(idVuelo, vuelo, ruta,avion);
+                    cambiarEstadoVuelo(idVuelo, vuelo, ruta, avion);
 
-                break;
-            case 4:
-                
-                break;
-            case 5:
-                
-                break;
-            case 6:
+                    break;
+                case 4:
+                    System.out.println("---------Ver promedio de pasajeros--------------");
+                    System.out.println("Ingrese el numero de vuelo: ");
+                    idVuelo = sc.nextLine();
+                    mostrarPromedio(vuelo, avion, idVuelo);
+                    break;
+                case 5:
+
+                    break;
+                case 6:
                     System.out.println("---------Mostrar datos de un avion--------------");
                     System.out.println("Ingrese el id del Avion: ");
                     idAvion = sc.nextLine();
-                    mostrarAvion(idAvion,avion);
-                break;
-            default:
-                System.out.println("Opcion Invalida. Ingresar opcion valida");
-                break;
-        }
+                    mostrarAvion(idAvion, avion);
+                    break;
+                default:
+                    System.out.println("Opcion Invalida. Ingresar opcion valida");
+                    break;
+            }
         } while (opcion != 8);
     }
 
@@ -92,27 +96,28 @@ public class testPrograma {
      */
 
     // sout para ver los vuelos en mi matriz
-/* 
-    public static void mostrarMatVuelo(Vuelo[][] matVuelo) {
-
-        System.out.println("\n----- MATRIZ DE VUELOS -----\n");
-
-        for (int f = 0; f < matVuelo.length; f++) {
-            System.out.print("Día " + f + ": ");
-
-            for (int c = 0; c < matVuelo[0].length; c++) {
-
-                if (matVuelo[f][c] != null) {
-                    System.out.print(" | " + matVuelo[f][c].getNroVuelo() + " ");
-                } else {
-                    System.out.print(" | ---- ");
-                }
-            }
-            System.out.println(" |");
-        }
-
-        System.out.println("\n----------------------------\n");
-    } */
+    /*
+     * public static void mostrarMatVuelo(Vuelo[][] matVuelo) {
+     * 
+     * System.out.println("\n----- MATRIZ DE VUELOS -----\n");
+     * 
+     * for (int f = 0; f < matVuelo.length; f++) {
+     * System.out.print("Día " + f + ": ");
+     * 
+     * for (int c = 0; c < matVuelo[0].length; c++) {
+     * 
+     * if (matVuelo[f][c] != null) {
+     * System.out.print(" | " + matVuelo[f][c].getNroVuelo() + " ");
+     * } else {
+     * System.out.print(" | ---- ");
+     * }
+     * }
+     * System.out.println(" |");
+     * }
+     * 
+     * System.out.println("\n----------------------------\n");
+     * }
+     */
 
     // modulo que me cambia los dias a filas
     public static int DiaAFila(String dia) {
@@ -185,78 +190,132 @@ public class testPrograma {
         }
         return esInternacional;
     }
-    //Modulo para obtener la distancia del vuelo.
-    public static double distanciaVuelo(String idRuta,List<Ruta>ruta){
-        int i =0;
+
+    // Modulo para obtener la distancia del vuelo.
+    public static double distanciaVuelo(String idRuta, List<Ruta> ruta) {
+        int i = 0;
         Ruta r;
-        boolean encontrado=false;
+        boolean encontrado = false;
         double distanciaKm = 0;
-        while(((i<ruta.size())&&(!encontrado))){
-            r=ruta.get(i);
-            if(idRuta.equals(r.getNumRuta())){
-                encontrado=true;
-                distanciaKm=r.getDistanciaKm();
+        while (((i < ruta.size()) && (!encontrado))) {
+            r = ruta.get(i);
+            if (idRuta.equals(r.getNumRuta())) {
+                encontrado = true;
+                distanciaKm = r.getDistanciaKm();
             }
             i++;
         }
         return distanciaKm;
     }
 
-    //modulo para cambiar el estado del vuelo
-    public static void cambiarEstadoVuelo(String idVueloAct, List<Vuelo>vuelo, List<Ruta>ruta,List<Avion>avion){
-        int i =0;
+    // modulo para cambiar el estado del vuelo
+    public static void cambiarEstadoVuelo(String idVueloAct, List<Vuelo> vuelo, List<Ruta> ruta, List<Avion> avion) {
+        int i = 0;
         Vuelo v;
-        String idAvion,idRuta;
+        String idAvion, idRuta;
         boolean encontrado = false;
         double cantidadKm;
-        while (((i<vuelo.size())&&(!encontrado))) {
-            v=vuelo.get(i);
-            idAvion=v.getIdAvion();
-            idRuta=v.getIdRuta();
-            if(idVueloAct.equals(v.getNroVuelo())){
-                encontrado=true;
+        while (((i < vuelo.size()) && (!encontrado))) {
+            v = vuelo.get(i);
+            idAvion = v.getIdAvion();
+            idRuta = v.getIdRuta();
+            if (idVueloAct.equals(v.getNroVuelo())) {
+                encontrado = true;
                 v.setRealizado(true);
                 cantidadKm = distanciaVuelo(idRuta, ruta);
-                actAvion(idAvion,avion,cantidadKm);
+                actAvion(idAvion, avion, cantidadKm);
                 System.out.println("Vuelo actualizado con exito!");
             }
             i++;
         }
-        if(!encontrado){
+        if (!encontrado) {
             System.out.println("Vuelo no encontrado");
         }
     }
-    //modulo para actualizar los km y los vuelos del  avion
-    public static void actAvion(String idAvion,List<Avion>avion, double cantidadKm){
-        int i =0;
+
+    // modulo para actualizar los km y los vuelos del avion
+    public static void actAvion(String idAvion, List<Avion> avion, double cantidadKm) {
+        int i = 0;
         Avion v;
-        boolean encontrado=false;
-        while(((i<avion.size())&&(!encontrado))){
-            v=avion.get(i);
-            if(idAvion.equals(v.getId())){
-                encontrado=true;
+        boolean encontrado = false;
+        while (((i < avion.size()) && (!encontrado))) {
+            v = avion.get(i);
+            if (idAvion.equals(v.getId())) {
+                encontrado = true;
                 v.sumarKmRec(cantidadKm);
                 v.sumarVuelo();
             }
-            i++;   
+            i++;
         }
     }
-    
-    //Mostrar datos de un avion
-    public static void mostrarAvion(String idAvion, List<Avion>avion){
-        int i =0;
+
+    // Mostrar datos de un avion
+    public static void mostrarAvion(String idAvion, List<Avion> avion) {
+        int i = 0;
         Avion av;
         boolean encontrado = false;
-        while (((i<avion.size())&&(!encontrado))) {
-            av=avion.get(i);
-            if(idAvion.equals(av.getId())){
-                encontrado=true;
+        while (((i < avion.size()) && (!encontrado))) {
+            av = avion.get(i);
+            if (idAvion.equals(av.getId())) {
+                encontrado = true;
                 System.out.println(av.toString());
             }
             i++;
         }
-        if(!encontrado){
+        if (!encontrado) {
             System.out.println("Avion no encontrado");
+        }
+    }
+
+    // mostrar y calcular el promedio de pasajeros recursivamente
+    public static double[] pasajerosRec(List<Vuelo> vuelo, List<Avion> avion, String idVuelo, int i) {
+        double[] pasajeros = new double[2];
+        if (i == vuelo.size()) {
+            pasajeros[0] = 0;
+            pasajeros[1] = 0;
+        } else {
+            Vuelo v = vuelo.get(i);
+            pasajeros = pasajerosRec(vuelo, avion, idVuelo, i + 1);
+            if (v.getNroVuelo().equals(idVuelo)) {
+                Avion a = buscarAvionRec(v.getIdAvion(), avion, 0);
+                if (v.getRealizado()) {// verifico si el vuelo ya fue hecho
+                    if (a != null) {
+                        pasajeros[0] += a.getCantAsientos();// suma pasajeros
+                        pasajeros[1] += 1;// suma vuelo
+                    }
+                }
+            }
+        }
+
+        return pasajeros;
+    }
+
+    // modulo para buscar el avion de forma recursiva
+    public static Avion buscarAvionRec(String idAvion, List<Avion> avion, int i) {
+        Avion a, encontrado;
+        if (i == avion.size()) {
+            encontrado = null;
+        } else {
+            a = avion.get(i);
+            if (a.getId().equals(idAvion)) {
+                encontrado = a;
+            } else {
+                encontrado = buscarAvionRec(idAvion, avion, i + 1);
+            }
+        }
+        return encontrado;
+    }
+
+    // modulo para calcular promedio
+    public static void mostrarPromedio(List<Vuelo> vuelo, List<Avion> avion, String idVuelo) {
+        double[] promedio = pasajerosRec(vuelo, avion, idVuelo, 0); // promedio[0] pasajeros,  promedio[1] vuelo
+        double prom;
+
+        if (promedio[1] == 0) {
+            System.out.println("El vuelo " + idVuelo + " no exste o no fue realizado");
+        } else {
+            prom = promedio[0] / promedio[1];
+            System.out.println("El promedio de pasajeros que volaron en el vuelo " + idVuelo + " es: " + prom);
         }
     }
     // ------------------CARGAR COSAS------------------
