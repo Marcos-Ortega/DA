@@ -71,6 +71,7 @@ public class testPrograma {
                     break;
             }
         } while (opcion != 8);
+        sc.close();
     }
 
     // modulo para ver que lee bien los txt
@@ -308,7 +309,7 @@ public class testPrograma {
 
     // modulo para calcular promedio
     public static void mostrarPromedio(List<Vuelo> vuelo, List<Avion> avion, String idVuelo) {
-        double[] promedio = pasajerosRec(vuelo, avion, idVuelo, 0); // promedio[0] pasajeros,  promedio[1] vuelo
+        double[] promedio = pasajerosRec(vuelo, avion, idVuelo, 0); // promedio[0] pasajeros, promedio[1] vuelo
         double prom;
 
         if (promedio[1] == 0) {
