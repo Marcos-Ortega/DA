@@ -17,12 +17,12 @@ public class testPrograma {
         Vuelo[][] matVuelo = new Vuelo[7][15];// defino matriz de vuelo
         matVuelo = cargaMatVuelo(matVuelo, vuelo);
         // mostrarMatVuelo(matVuelo);//llamo al sout para ver mi matriz de vuelo
-        // mostrarDatosCargados(avion, ruta, vuelo);//llamo sout para ver si lee bien los txt
+         mostrarDatosCargados(avion, ruta, vuelo);//llamo sout para ver si lee bien los txt
 
     }
 
     //modulo para ver que lee bien los txt
-    /*public static void mostrarDatosCargados(List<Avion> aviones, List<Ruta> rutas, List<Vuelo> vuelos) {
+    public static void mostrarDatosCargados(List<Avion> aviones, List<Ruta> rutas, List<Vuelo> vuelos) {
 
         System.out.println("=== AVIONES CARGADOS ===");
         for (int i = 0; i < aviones.size(); i++) {
@@ -38,7 +38,7 @@ public class testPrograma {
         for (int i = 0; i < vuelos.size(); i++) {
             System.out.println(vuelos.get(i));
         }
-    }*/
+    }
 
     // sout para ver los vuelos en mi matriz
     /*
