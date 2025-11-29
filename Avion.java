@@ -67,4 +67,10 @@ public class Avion {
         return this.id.equals(unAvion.getId());
     }
 
+    public void sumarKmRec(double km){
+        this.kmRec += km;
+    }
+    public void sumarVuelo(){
+        this.cantVuelos += 1;
+    }
 }
