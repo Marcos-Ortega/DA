@@ -21,7 +21,7 @@ public class testPrograma {
         cargarAvion(avion);
         cargarRuta(ruta);
         cargarVuelo(vuelo);
-        Vuelo[][] matVuelo = new Vuelo[7][15];// defino matriz de vuelo
+        Vuelo[][] matVuelo = new Vuelo[7][15];// defino matriz de vuelo 
         matVuelo = cargaMatVuelo(matVuelo, vuelo);
         // mostrarMatVuelo(matVuelo);// llamo al sout para ver mi matriz de vuelo
         // mostrarDatosCargados(avion, ruta, vuelo);//llamo sout para ver si lee bien
@@ -47,6 +47,7 @@ public class testPrograma {
                     System.out.println("Saliendo.");
                     break;
                 case 1:
+                    
 
                     break;
                 case 2:
@@ -340,6 +341,108 @@ public class testPrograma {
             System.out.println("El promedio de pasajeros que volaron en el vuelo " + idVuelo + " es: " + prom);
         }
     }
+
+    //metodo de ordenamiento 
+
+     public static List<Vuelo> mergeSort(List<Vuelo> arregloVuelo, List<Ruta> ruta) {
+        int mitad;
+        List<Vuelo> listaVuelo = new ArrayList<>();
+        if (arregloVuelo.size() > 1) {
+            mitad = arregloVuelo.size() / 2;
+            List<Vuelo> arregloIzquierdo = new ArrayList<>(arregloVuelo.subList(0, mitad));// creo arreglo izq
+                                                                                           // divindiendo el origianl
+            List<Vuelo> arregloDerecho = new ArrayList<>(arregloVuelo.subList(mitad, arregloVuelo.size()));// creo
+                                                                                                           // arreglo
+                                                                                                           // derecho
+                                                                                                           // divindiendo
+                                                                                                           // el
+                                                                                                           // origianl
+            arregloIzquierdo = mergeSort(arregloIzquierdo, ruta);
+            arregloDerecho = mergeSort(arregloDerecho, ruta);
+            listaVuelo = merge(arregloIzquierdo, arregloDerecho, ruta);
+        } else {
+            listaVuelo = arregloVuelo;
+        }
+        return listaVuelo;
+    }
+
+    public static List<Vuelo> merge(List<Vuelo> arregloIzquierdo, List<Vuelo> arregloDerecho, List<Ruta> ruta) {
+        List<Vuelo> aux = new ArrayList<>();
+        int i = 0, j = 0;
+        Vuelo vuelo = arregloIzquierdo.get(i), vuelo2 = arregloDerecho.get(j);
+        ;
+        double distancia1, distancia2;
+        // mientras haya elementos en ambas listas, repito
+        while ((i < arregloIzquierdo.size()) && (j < arregloDerecho.size())) {
+            vuelo = arregloIzquierdo.get(i);
+            vuelo2 = arregloDerecho.get(j);
+            distancia1 = distanciaVuelo(vuelo.getIdRuta(), ruta);
+            distancia2 = distanciaVuelo(vuelo2.getIdRuta(), ruta);
+            if (distancia1 <= distancia2) { // comparo las distancias
+                aux.add(vuelo);
+                i++;
+            } else {
+                aux.add(vuelo2);
+                j++;
+            }
+        }
+        // copio elementos que quedaron sin comparar en la primera lista
+        while (i < arregloIzquierdo.size()) {
+            aux.add(arregloIzquierdo.get(i));
+            i++;
+        }
+        // copio elementos que quedaron sin comparar en la segunda lista
+        while (j < arregloDerecho.size()) {
+            aux.add(arregloDerecho.get(j));
+            j++;
+        }
+        return aux;
+    }
+
+    public static void mostrarVuelosOrdenados(Vuelo[][] matVuelo, List<Ruta> ruta, String dia) {
+        int fila = DiaAFila(dia);
+        double km;
+        List<Vuelo> lista = new ArrayList<>();
+        if (fila >= 0 && fila <=6) {
+            for (int i = 0; i < matVuelo.length; i++) {
+                Vuelo v = matVuelo[fila][i];
+                if (v != null) {
+                    lista.add(v);
+                }
+            }
+            if (!(lista.isEmpty())) {
+                lista = mergeSort(lista, ruta);
+                guardarArchivo(lista, dia);
+                System.out.println("Vuelos Ordenados: ");
+                for (Vuelo v : lista) {
+                    km = distanciaVuelo(v.getIdRuta(), ruta);
+                    System.out.println("Vuelo: " + v.getNroVuelo() +
+                            " | Avion: " + v.getIdAvion() +
+                            " | Ruta: " + v.getIdRuta() +
+                            " | Dia: " + v.getDia() +
+                            " | Hora: " + v.getHora()+
+                            " | KM: "+km);
+                }
+            }
+        }
+    }
+
+    private static void guardarArchivo(List<Vuelo> vuelo, String dia) {
+        try {
+            String nombreArchivo = "VuelosOrdenados-" + dia + ".txt";
+            FileWriter archivo = new FileWriter("C:\\Users\\Marcos\\OneDrive\\Escritorio\\DA\\" + nombreArchivo, true);
+            BufferedWriter escritor = new BufferedWriter(archivo);
+            for (Vuelo v : vuelo) {
+                escritor.write(v.getNroVuelo() + ";" + v.getIdAvion() + ";" + v.getIdRuta() + ";" + v.getDia() + ";"
+                        + v.getHora());
+                escritor.newLine();
+            }
+            escritor.close();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     // ------------------CARGAR COSAS------------------
 
     private static void cargarAvion(List<Avion> avion) {
@@ -456,6 +559,7 @@ public class testPrograma {
 
         return matVuelo;
     }
+<<<<<<< HEAD
 
     public static List<Vuelo> mergeSort(List<Vuelo> arregloVuelo, List<Ruta> ruta) {
         int mitad;
@@ -573,4 +677,6 @@ public class testPrograma {
         }
         return cantidad;
     }
+=======
+>>>>>>> 120030a5f2c787b66d9e518cf2d4245b3a15216a
 }
