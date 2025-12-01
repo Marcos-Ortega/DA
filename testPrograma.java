@@ -15,8 +15,10 @@ public class testPrograma {
         // Declaracion de variables
         Scanner sc = new Scanner(System.in);
         int opcion, sinHorario = 0, distMin, distMax, cantAsientosNueA, cantVuelosNueA;
-        String idVuelo, idAvion, dia, nuevoIdA, modeloNuevoA;
-        boolean idValido = false;
+        String idVuelo, idAvion, dia, nuevoIdA, modeloNuevoA, idAnuevoV, idRnuevoV, diaNuevoV, horaNuevoV,
+                nuevoNroVuelo;
+        boolean idValido = false, idAvueValido = false, rutaValida = false, diaValido = false, horaValida = false,
+                idAVuelo = false, nroVueloValido = false;
         double cantKmRecoNueA;
 
         // Creando listas de arreglo de los tipos correspondientes:
@@ -72,43 +74,58 @@ public class testPrograma {
                         System.out.println("Ingrese un id valido para el nuevo avion:");
                         nuevoIdA = sc.nextLine();
                         idValido = validarFormatoIdA(nuevoIdA);
-                        if(idValido){
-                            idValido=validarIdA(nuevoIdA, avion);
+                        if (idValido) {
+                            idValido = validarIdA(nuevoIdA, avion);
                         }
                     } while (!idValido);
                     System.out.println("Ingrese el modelo del Avion:");
-                    modeloNuevoA=sc.nextLine();
+                    modeloNuevoA = sc.nextLine();
                     System.out.println("Ingrese la cantidad de asientos del Avion:");
-                    cantAsientosNueA=sc.nextInt();
+                    cantAsientosNueA = sc.nextInt();
                     System.out.println("Ingrese la cantidad de vuelos que realizo el Avion: ");
-                    cantVuelosNueA=sc.nextInt();
+                    cantVuelosNueA = sc.nextInt();
                     System.out.println("Ingrese la cantidad de kilometros recorridos por el Avion:");
-                    cantKmRecoNueA=sc.nextDouble();
+                    cantKmRecoNueA = sc.nextDouble();
                     avion.add(new Avion(nuevoIdA, modeloNuevoA, cantAsientosNueA, cantVuelosNueA, cantKmRecoNueA));
                     break;
                 case 2:
                     System.out.println("---------Ingresar un nuevo vuelo--------------");
-                    System.out.println("Ingrese el numero de vuelo");
-
-                    /*
-                     * do {
-                     * System.out.println("Ingrese el id de un avion existente:");
-                     * idAnuevoV = sc.nextLine();
-                     * idAvValido = validarIdA(nuevoIdA, avion);
-                     * } while (!idValido);
-                     * do {
-                     * System.out.println("Ingrese una ruta existente:");
-                     * idRnuevoV = sc.nextLine();
-                     * rutaValida = validarIdA(idRnuevoV, ruta);
-                     * } while (!idValido);
-                     * do {
-                     * System.out.println("Ingrese dia valido para el nuevo vuelo:");
-                     * } while (diaValido);
-                     * do {
-                     * System.out.println("Ingrese una hora valida para el nuevo vuelo:");
-                     * } while (horaValida);
-                     * System.out.println("Ingrese la cantidad de vuelos que realizo el Avion: ");
-                     */
+                    do {
+                        System.out.println("Ingrese el numero de vuelo no existente:");
+                        nuevoNroVuelo = sc.nextLine();
+                        nuevoNroVuelo = "AR" + nuevoNroVuelo;
+                        nroVueloValido = validarNumVuelo(nuevoNroVuelo, vuelo);
+                    } while (!nroVueloValido);
+                    do {
+                        System.out.println("Ingrese un id valido de un avion existente:");
+                        idAnuevoV = sc.nextLine();
+                        idAvueValido = validarFormatoIdA(idAnuevoV);
+                        if (idAvueValido) {
+                            idAVuelo = validarIdA(idAnuevoV, avion);
+                            if (!idAVuelo) {
+                                idAvueValido = true;
+                            } else {
+                                System.out.println("Error: El avión no existe en el sistema.");
+                                idAvueValido = false; // Forzamos a repetir el bucle
+                            }
+                        }
+                    } while (!idAvueValido);
+                    do {
+                        System.out.println("Ingrese un id de ruta existente:");
+                        idRnuevoV = sc.nextLine();
+                        rutaValida = validarIdRuta(idRnuevoV, ruta);
+                    } while (!rutaValida);
+                    do {
+                        System.out.println("Ingrese dia valido para el nuevo vuelo:");
+                        diaNuevoV = sc.nextLine();
+                        diaValido = validDia(diaNuevoV);
+                    } while (!diaValido);
+                    do {
+                        System.out.println("Ingrese una hora valida (desde 09:00 hasta 21:00) para el nuevo vuelo:");
+                        horaNuevoV = sc.nextLine();
+                        horaValida = validarHoraNueV(horaNuevoV);
+                    } while (!horaValida);
+                    vuelo.add(new Vuelo(nuevoNroVuelo, idAnuevoV, idRnuevoV, diaNuevoV, horaNuevoV, false));
                     break;
                 case 3:
                     System.out.println("---------Cambiar Estado de vuelo--------------");
@@ -178,20 +195,100 @@ public class testPrograma {
         } while (opcion != 0);
         sc.close();
     }
-    //comparar ID avion si ya existe
-    public static boolean validarIdA(String nuevoIda, List<Avion> avion){
-        boolean valido=true;
-        Avion a;
-        int i=0;
-        while((i<avion.size())&&(valido)){
-            a=avion.get(i);
-            if(a.getId().equals(nuevoIda)){
-                valido=false;
+
+    // validar hora de vuelo
+    public static boolean validarHoraNueV(String horaNuevoV) {
+        boolean valida = false;
+        int finHora = 0, horaV = 0;
+        finHora = horaNuevoV.indexOf(":");
+        if (finHora != -1) {
+            String h = horaNuevoV.substring(0, finHora);
+            horaV = Integer.parseInt(h);
+            if ((horaV >= 8) && (horaV <= 21)) {
+                valida = true;
+            }
+        }
+        return valida;
+    }
+
+    // validar que no exista otro vuelo con ese numero
+    public static boolean validarNumVuelo(String nuevoNroVuelo, List<Vuelo> vuelo) {
+        boolean valido = true;
+        Vuelo v;
+        int i = 0;
+        while ((i < vuelo.size()) && (valido)) {
+            v = vuelo.get(i);
+            if (v.getNroVuelo().equals(nuevoNroVuelo)) {
+                valido = false;
             }
             i++;
         }
         return valido;
     }
+
+    // validar dia
+    public static boolean validDia(String diaNuevoV) {
+        boolean valido = false;
+        switch (diaNuevoV.toLowerCase()) {
+            case "lunes":
+                valido = true;
+                break;
+            case "martes":
+                valido = true;
+                break;
+            case "miercoles":
+                valido = true;
+                break;
+            case "jueves":
+                valido = true;
+                break;
+            case "viernes":
+                valido = true;
+                break;
+            case "sabado":
+                valido = true;
+                break;
+            case "domingo":
+                valido = true;
+                break;
+
+            default:
+                System.out.println("Dia no existe.");
+                break;
+        }
+        return valido;
+    }
+
+    // validar que exista ese id de ruta
+    public static boolean validarIdRuta(String idRnuevoV, List<Ruta> ruta) {
+        int i = 0;
+        boolean valido = false;
+        Ruta r;
+        while ((i < ruta.size()) && (!valido)) {
+            r = ruta.get(i);
+            if (r.getNumRuta().equals(idRnuevoV)) {
+                valido = true;
+            }
+            i++;
+        }
+        return valido;
+    }
+
+    // comparar ID avion si ya existe
+    public static boolean validarIdA(String nuevoIda, List<Avion> avion) {
+        boolean valido = true;
+        Avion a;
+        int i = 0;
+        while ((i < avion.size()) && (valido)) {
+            a = avion.get(i);
+            if (a.getId().equals(nuevoIda)) {
+                valido = false;
+            }
+            i++;
+        }
+        return valido;
+    }
+
     // verificar que el formato del ID AVION sea valido
     public static boolean validarFormatoIdA(String nuevoIdA) {
         boolean idValido = true, encontrado = false;
@@ -228,28 +325,28 @@ public class testPrograma {
                         idValido = false;
                         break;
                 }
-            }else if (nuevoIdA.length()==7) {
-                prefijo2=nuevoIdA.substring(0, 4);
+            } else if (nuevoIdA.length() == 7) {
+                prefijo2 = nuevoIdA.substring(0, 4);
                 switch (prefijo2) {
-                    case "LV-X":    
-                    i=4;
-                        while ((i<nuevoIdA.length())&&(!encontrado)){
-                        
-                            if(!Character.isDigit( nuevoIdA.charAt(i))){
-                                encontrado=true;
-                                idValido=false;
+                    case "LV-X":
+                        i = 4;
+                        while ((i < nuevoIdA.length()) && (!encontrado)) {
+
+                            if (!Character.isDigit(nuevoIdA.charAt(i))) {
+                                encontrado = true;
+                                idValido = false;
                             }
                             i++;
                         }
                         break;
 
                     case "LV-S":
-                    i=4;
-                        while ((i<nuevoIdA.length())&&(!encontrado)){
-                        
-                            if(!Character.isDigit( nuevoIdA.charAt(i))){
-                                encontrado=true;
-                                idValido=false;
+                        i = 4;
+                        while ((i < nuevoIdA.length()) && (!encontrado)) {
+
+                            if (!Character.isDigit(nuevoIdA.charAt(i))) {
+                                encontrado = true;
+                                idValido = false;
                             }
                             i++;
                         }
@@ -257,27 +354,27 @@ public class testPrograma {
                     default:
                         idValido = false;
                         break;
-                    }
-            }else if(nuevoIdA.length()==8){
-                prefijo3=nuevoIdA.substring(0, 5);
+                }
+            } else if (nuevoIdA.length() == 8) {
+                prefijo3 = nuevoIdA.substring(0, 5);
                 if (prefijo3.equals("LV-SX")) {
-                    i=5;
-                    while ((i<nuevoIdA.length())&&(!encontrado)){
-                    
-                        if(!Character.isDigit( nuevoIdA.charAt(i))){
-                            encontrado=true;
-                            idValido=false;
+                    i = 5;
+                    while ((i < nuevoIdA.length()) && (!encontrado)) {
+
+                        if (!Character.isDigit(nuevoIdA.charAt(i))) {
+                            encontrado = true;
+                            idValido = false;
                         }
                         i++;
                     }
-                }else{
-                    idValido=false;
+                } else {
+                    idValido = false;
                 }
-            }else{
-                idValido=false;
+            } else {
+                idValido = false;
             }
-        }else{
-            idValido=false;
+        } else {
+            idValido = false;
         }
         return idValido;
     }
