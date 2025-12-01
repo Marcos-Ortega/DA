@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.io.BufferedWriter;
 
 public class testPrograma {
@@ -76,6 +75,11 @@ public class testPrograma {
                         idValido = validarFormatoIdA(nuevoIdA);
                         if (idValido) {
                             idValido = validarIdA(nuevoIdA, avion);
+                            if (!idValido) {
+                                System.out.println("Ya existe un avion con ese id.");
+                            }
+                        }else{
+                            System.out.println("id invalido.");
                         }
                     } while (!idValido);
                     System.out.println("Ingrese el modelo del Avion:");
@@ -87,14 +91,18 @@ public class testPrograma {
                     System.out.println("Ingrese la cantidad de kilometros recorridos por el Avion:");
                     cantKmRecoNueA = sc.nextDouble();
                     avion.add(new Avion(nuevoIdA, modeloNuevoA, cantAsientosNueA, cantVuelosNueA, cantKmRecoNueA));
+                    System.out.println("Avion nuevo cargado");
                     break;
                 case 2:
                     System.out.println("---------Ingresar un nuevo vuelo--------------");
                     do {
-                        System.out.println("Ingrese el numero de vuelo no existente:");
+                        System.out.println("Ingrese un numero de vuelo no existente:");
                         nuevoNroVuelo = sc.nextLine();
-                        nuevoNroVuelo = "AR" + nuevoNroVuelo;
+                        nuevoNroVuelo = "AR"+nuevoNroVuelo;
                         nroVueloValido = validarNumVuelo(nuevoNroVuelo, vuelo);
+                        if (!nroVueloValido) {
+                            System.out.println("ya existe ese numero.");
+                        }
                     } while (!nroVueloValido);
                     do {
                         System.out.println("Ingrese un id valido de un avion existente:");
@@ -108,12 +116,17 @@ public class testPrograma {
                                 System.out.println("Error: El avión no existe en el sistema.");
                                 idAvueValido = false; // Forzamos a repetir el bucle
                             }
+                        }else{
+                            System.out.println("id invalido.");
                         }
                     } while (!idAvueValido);
                     do {
                         System.out.println("Ingrese un id de ruta existente:");
                         idRnuevoV = sc.nextLine();
                         rutaValida = validarIdRuta(idRnuevoV, ruta);
+                        if (!rutaValida) {
+                            System.out.println("no existe esa ruta.");
+                        }
                     } while (!rutaValida);
                     do {
                         System.out.println("Ingrese dia valido para el nuevo vuelo:");
@@ -124,8 +137,12 @@ public class testPrograma {
                         System.out.println("Ingrese una hora valida (desde 09:00 hasta 21:00) para el nuevo vuelo:");
                         horaNuevoV = sc.nextLine();
                         horaValida = validarHoraNueV(horaNuevoV);
+                        if (!horaValida) {
+                            System.out.println("hora invalida");
+                        }
                     } while (!horaValida);
                     vuelo.add(new Vuelo(nuevoNroVuelo, idAnuevoV, idRnuevoV, diaNuevoV, horaNuevoV, false));
+                    System.out.println("Vuelo nuevo cargado");
                     break;
                 case 3:
                     System.out.println("---------Cambiar Estado de vuelo--------------");
