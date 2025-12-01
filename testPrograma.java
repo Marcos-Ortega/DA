@@ -59,7 +59,7 @@ public class testPrograma {
             System.out.println("0-Salir");
             opcion = sc.nextInt();
             sc.nextLine();
-            
+
             switch (opcion) {
                 case 0:
                     System.out.println("Saliendo.");
@@ -81,15 +81,22 @@ public class testPrograma {
                     System.out.println("---------Ingresar un nuevo vuelo--------------");
                     System.out.println("Ingrese el numero de vuelo");
                     do{
-                        System.out.println("Ingrese el id del avion del vuelo:");
-                        nuevoIdA=sc.nextLine();
-                        idValido=validarIdA(nuevoIdA, avion);
+                        System.out.println("Ingrese el id de un avion existente:");
+                        idAnuevoV=sc.nextLine();
+                        idAvValido=validarIdA(nuevoIdA, avion);
                     }while(!idValido);
-                    System.out.println("Ingrese el modelo del Avion:");
-                    System.out.println("Ingrese la cantidad de asientos del Avion:");
+                    do{
+                        System.out.println("Ingrese una ruta existente:");
+                        idRnuevoV=sc.nextLine();
+                        rutaValida=validarIdA(idRnuevoV, ruta);
+                    }while(!idValido);
+                    do{
+                        System.out.println("Ingrese dia valido para el nuevo vuelo:");
+                    }while(diaValido);
+                    do{
+                    System.out.println("Ingrese una hora valida para el nuevo vuelo:");
+                    }while(horaValida);
                     System.out.println("Ingrese la cantidad de vuelos que realizo el Avion: ");
-                    System.out.println("Ingrese la cantidad de kilometros recorridos por el Avion:");
-
                     break;
                 case 3:
                     System.out.println("---------Cambiar Estado de vuelo--------------");
@@ -116,6 +123,7 @@ public class testPrograma {
                     mostrarAvion(idAvion, avion);
                     break;
                 case 7:
+                    
                     break;
                 case 8:
                     System.out.println("---------Ver cantidad de horarios sin vuelos--------------");
