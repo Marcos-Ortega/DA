@@ -14,9 +14,10 @@ public class testPrograma {
     public static void main(String[] args) {
         // Declaracion de variables
         Scanner sc = new Scanner(System.in);
-        int opcion, sinHorario = 0, distMin, distMax;
-        String idVuelo, idAvion, dia, nuevoIdA;
+        int opcion, sinHorario = 0, distMin, distMax, cantAsientosNueA, cantVuelosNueA;
+        String idVuelo, idAvion, dia, nuevoIdA, modeloNuevoA;
         boolean idValido = false;
+        double cantKmRecoNueA;
 
         // Creando listas de arreglo de los tipos correspondientes:
         List<Avion> avion = new ArrayList<>();
@@ -68,15 +69,22 @@ public class testPrograma {
                     System.out.println("---------Ingresar un nuevo avion--------------");
 
                     do {
-                        System.out.println("Ingrese el id del nuevo avion:");
+                        System.out.println("Ingrese un id valido para el nuevo avion:");
                         nuevoIdA = sc.nextLine();
-                        idValido = validarIdA(nuevoIdA, avion);
-                    } while (idValido);
+                        idValido = validarFormatoIdA(nuevoIdA);
+                        if(idValido){
+                            idValido=validarIdA(nuevoIdA, avion);
+                        }
+                    } while (!idValido);
                     System.out.println("Ingrese el modelo del Avion:");
+                    modeloNuevoA=sc.nextLine();
                     System.out.println("Ingrese la cantidad de asientos del Avion:");
+                    cantAsientosNueA=sc.nextInt();
                     System.out.println("Ingrese la cantidad de vuelos que realizo el Avion: ");
+                    cantVuelosNueA=sc.nextInt();
                     System.out.println("Ingrese la cantidad de kilometros recorridos por el Avion:");
-
+                    cantKmRecoNueA=sc.nextDouble();
+                    avion.add(new Avion(nuevoIdA, modeloNuevoA, cantAsientosNueA, cantVuelosNueA, cantKmRecoNueA));
                     break;
                 case 2:
                     System.out.println("---------Ingresar un nuevo vuelo--------------");
@@ -170,47 +178,106 @@ public class testPrograma {
         } while (opcion != 0);
         sc.close();
     }
-
-    // verificardni
-    public static boolean validarIdA(String nuevoIdA, List<Avion> avion){
-        boolean idValido=true, encontrado=false;
-        String prefijo1;
-        int i;
-        if ((nuevoIdA.length()<=8)&&(nuevoIdA.length()>=6)) {
-            if(nuevoIdA.length()==6){
-            prefijo1=nuevoIdA.substring(0, 3);
-            switch (prefijo1) {
-                case "LV-":    
-                i=3;
-                    while ((i<nuevoIdA.length())&&(!encontrado)){
-                        
-                        if(!Character.isLetter( nuevoIdA.charAt(i))){
-                            encontrado=true;
-                            idValido=false;
-                        }
-                        i++;
-                    }
-                    break;
-
-                case "LQ-":
-                i=3;
-                    while ((i<nuevoIdA.length())&&(!encontrado)){
-                        
-                        if(!Character.isLetter( nuevoIdA.charAt(i))){
-                            encontrado=true;
-                            idValido=false;
-                        }
-                        i++;
-                    }
-                    break;
-                default:
-                    break;
+    //comparar ID avion si ya existe
+    public static boolean validarIdA(String nuevoIda, List<Avion> avion){
+        boolean valido=true;
+        Avion a;
+        int i=0;
+        while((i<avion.size())&&(valido)){
+            a=avion.get(i);
+            if(a.getId().equals(nuevoIda)){
+                valido=false;
             }
-        }else if (nuevoIdA.length()==7) {
-            
+            i++;
         }
+        return valido;
+    }
+    // verificar que el formato del ID AVION sea valido
+    public static boolean validarFormatoIdA(String nuevoIdA) {
+        boolean idValido = true, encontrado = false;
+        String prefijo1, prefijo2, prefijo3;
+        int i;
+        if ((nuevoIdA.length() <= 8) && (nuevoIdA.length() >= 6)) {
+            if (nuevoIdA.length() == 6) {
+                prefijo1 = nuevoIdA.substring(0, 3);
+                switch (prefijo1) {
+                    case "LV-":
+                        i = 3;
+                        while ((i < nuevoIdA.length()) && (!encontrado)) {
 
-            
+                            if (!Character.isLetter(nuevoIdA.charAt(i))) {
+                                encontrado = true;
+                                idValido = false;
+                            }
+                            i++;
+                        }
+                        break;
+
+                    case "LQ-":
+                        i = 3;
+                        while ((i < nuevoIdA.length()) && (!encontrado)) {
+
+                            if (!Character.isLetter(nuevoIdA.charAt(i))) {
+                                encontrado = true;
+                                idValido = false;
+                            }
+                            i++;
+                        }
+                        break;
+                    default:
+                        idValido = false;
+                        break;
+                }
+            }else if (nuevoIdA.length()==7) {
+                prefijo2=nuevoIdA.substring(0, 4);
+                switch (prefijo2) {
+                    case "LV-X":    
+                    i=4;
+                        while ((i<nuevoIdA.length())&&(!encontrado)){
+                        
+                            if(!Character.isDigit( nuevoIdA.charAt(i))){
+                                encontrado=true;
+                                idValido=false;
+                            }
+                            i++;
+                        }
+                        break;
+
+                    case "LV-S":
+                    i=4;
+                        while ((i<nuevoIdA.length())&&(!encontrado)){
+                        
+                            if(!Character.isDigit( nuevoIdA.charAt(i))){
+                                encontrado=true;
+                                idValido=false;
+                            }
+                            i++;
+                        }
+                        break;
+                    default:
+                        idValido = false;
+                        break;
+                    }
+            }else if(nuevoIdA.length()==8){
+                prefijo3=nuevoIdA.substring(0, 5);
+                if (prefijo3.equals("LV-SX")) {
+                    i=5;
+                    while ((i<nuevoIdA.length())&&(!encontrado)){
+                    
+                        if(!Character.isDigit( nuevoIdA.charAt(i))){
+                            encontrado=true;
+                            idValido=false;
+                        }
+                        i++;
+                    }
+                }else{
+                    idValido=false;
+                }
+            }else{
+                idValido=false;
+            }
+        }else{
+            idValido=false;
         }
         return idValido;
     }
