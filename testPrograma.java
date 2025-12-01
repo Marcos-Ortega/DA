@@ -13,8 +13,8 @@ public class testPrograma {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int opcion;
-        String idVuelo, idAvion,dia;
+        int opcion, sinHorario=0;;
+        String idVuelo, idAvion, dia;
         List<Avion> avion = new ArrayList<>(); /* creo lista de arreglo de tipo Avion con el nombre de avion */
         List<Ruta> ruta = new ArrayList<>(); /* creo lista de arreglo de tipo Ruta con el nombre de ruta */
         List<Vuelo> vuelo = new ArrayList<>();
@@ -36,11 +36,16 @@ public class testPrograma {
             System.out.println("4-Ver promedio de pasajeros.");
             System.out.println("5-Mostrar lista de vuelos ordenada.");
             System.out.println("6-Mostrar datos de un avion.");
-            System.out.println("7-Ver cuando le toca el proximo mantenimiento a un cierto avion");
-            System.out.println("8-Salir");
+            System.out.println("7-Ver vuelos en una determinada distancaia.");
+            System.out.println("8-Cantidad de vuelos sin horarios.");
+            System.out.println("9-Ver primer vuelo internacional.");
+            System.out.println("0-Salir");
             opcion = sc.nextInt();
             sc.nextLine();
             switch (opcion) {
+                case 0:
+                    System.out.println("Saliendo.");
+                    break;
                 case 1:
 
                     break;
@@ -52,7 +57,6 @@ public class testPrograma {
                     System.out.println("Ingrese el id del vuelo: ");
                     idVuelo = sc.nextLine();
                     cambiarEstadoVuelo(idVuelo, vuelo, ruta, avion);
-
                     break;
                 case 4:
                     System.out.println("---------Ver promedio de pasajeros--------------");
@@ -72,11 +76,20 @@ public class testPrograma {
                     idAvion = sc.nextLine();
                     mostrarAvion(idAvion, avion);
                     break;
+                case 7:
+                    break;
+                case 8:
+                    System.out.println("---------Ver cantidad de horarios sin vuelos--------------");
+                    sinHorario = horarioSinVuelosRec(matVuelo, 0, 0);
+                    System.out.println("La cantidad de horarios sin vuelos son: "+sinHorario);
+                    break;
+                case 9: 
+                    break;
                 default:
                     System.out.println("Opcion Invalida. Ingresar opcion valida");
                     break;
             }
-        } while (opcion != 8);
+        } while (opcion != 0);
         sc.close();
     }
 
@@ -103,6 +116,7 @@ public class testPrograma {
      */
 
     // sout para ver los vuelos en mi matriz
+
     /*
      * public static void mostrarMatVuelo(Vuelo[][] matVuelo) {
      * 
@@ -114,7 +128,9 @@ public class testPrograma {
      * for (int c = 0; c < matVuelo[0].length; c++) {
      * 
      * if (matVuelo[f][c] != null) {
-     * System.out.print(" | " + matVuelo[f][c].getNroVuelo() + " ");
+     * System.out.print(" | " + matVuelo[f][c].getNroVuelo() + " " +
+     * matVuelo[f][c].getHora()+ " |");
+     * 
      * } else {
      * System.out.print(" | ---- ");
      * }
@@ -500,7 +516,7 @@ public class testPrograma {
         int fila = DiaAFila(dia);
         double km;
         List<Vuelo> lista = new ArrayList<>();
-        if (fila >= 0 && fila <=6) {
+        if (fila >= 0 && fila <= 6) {
             for (int i = 0; i < matVuelo.length; i++) {
                 Vuelo v = matVuelo[fila][i];
                 if (v != null) {
@@ -517,8 +533,8 @@ public class testPrograma {
                             " | Avion: " + v.getIdAvion() +
                             " | Ruta: " + v.getIdRuta() +
                             " | Dia: " + v.getDia() +
-                            " | Hora: " + v.getHora()+
-                            " | KM: "+km);
+                            " | Hora: " + v.getHora() +
+                            " | KM: " + km);
                 }
             }
         }
@@ -538,5 +554,23 @@ public class testPrograma {
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+    // modulo para calcular recursivamente horarios sin vuelos
+    public static int horarioSinVuelosRec(Vuelo[][] matVuelo, int i, int j) {
+        int cantidad = 0;
+        if (i < matVuelo.length) {
+            if (j < matVuelo[i].length) {
+                if (matVuelo[i][j] == null) {
+                    cantidad = 1 + horarioSinVuelosRec(matVuelo, i, j + 1);
+                } else {
+                    cantidad = horarioSinVuelosRec(matVuelo, i, j + 1);
+                }
+            }
+            else{
+                cantidad = horarioSinVuelosRec(matVuelo, i+1, 0);
+            }
+        }
+        return cantidad;
     }
 }
