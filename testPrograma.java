@@ -66,7 +66,7 @@ public class testPrograma {
                     break;
                 case 1:
                     System.out.println("---------Ingresar un nuevo avion--------------");
-                    do{
+                   /*  do{
                         System.out.println("Ingrese el id del nuevo avion:");
                         nuevoIdA=sc.nextLine();
                         idValido=validarIdA(nuevoIdA, avion);
@@ -74,13 +74,13 @@ public class testPrograma {
                     System.out.println("Ingrese el modelo del Avion:");
                     System.out.println("Ingrese la cantidad de asientos del Avion:");
                     System.out.println("Ingrese la cantidad de vuelos que realizo el Avion: ");
-                    System.out.println("Ingrese la cantidad de kilometros recorridos por el Avion:");
+                    System.out.println("Ingrese la cantidad de kilometros recorridos por el Avion:");*/
 
                     break;
                 case 2:
                     System.out.println("---------Ingresar un nuevo vuelo--------------");
                     System.out.println("Ingrese el numero de vuelo");
-                    do{
+                    /*do{
                         System.out.println("Ingrese el id de un avion existente:");
                         idAnuevoV=sc.nextLine();
                         idAvValido=validarIdA(nuevoIdA, avion);
@@ -96,7 +96,7 @@ public class testPrograma {
                     do{
                     System.out.println("Ingrese una hora valida para el nuevo vuelo:");
                     }while(horaValida);
-                    System.out.println("Ingrese la cantidad de vuelos que realizo el Avion: ");
+                    System.out.println("Ingrese la cantidad de vuelos que realizo el Avion: ");*/
                     break;
                 case 3:
                     System.out.println("---------Cambiar Estado de vuelo--------------");
@@ -128,13 +128,13 @@ public class testPrograma {
                     distMin=sc.nextInt();
                     System.out.println("Ingrese la distancia maxima que desea recorrer:");
                     distMax=sc.nextInt();
-                    List<Vuelo> distanciaVuelo = new ArrayList<>();
-                    distanciaVuelo=buscarVueloDist(distMin, distMax, vuelo, distanciaVuelo);
-                    if (distanciaVuelo.isEmpty()) {
+                    List<Vuelo> mostrarDistVuelo = new ArrayList<>();
+                    mostrarDistVuelo=buscarVueloDist(distMin, distMax, vuelo, mostrarDistVuelo, ruta);
+                    if (mostrarDistVuelo.isEmpty()) {
                         System.out.println("No hay ningun vuelo que recorra ese rango de distancia.");
                     } else {
-                        for(int i = 0; i < distanciaVuelo.size(); i++){
-                            System.out.println(distanciaVuelo.get(i));
+                        for(int i = 0; i < mostrarDistVuelo.size(); i++){
+                            System.out.println(mostrarDistVuelo.get(i));
                         }
                     }
                     break;
@@ -153,18 +153,21 @@ public class testPrograma {
         sc.close();
     }
     //modulo distancia
-    public static List<Vuelo> buscarVueloDist(int distMin, int distMax,List<Vuelo> vuelo, List<Vuelo> distanciaVuelo){
+    public static List<Vuelo> buscarVueloDist(int distMin, int distMax,List<Vuelo> vuelo, List<Vuelo> distanciaVuelo, List <Ruta> ruta){
         Vuelo v;
-        int dist=0;
+        double dist;
+        String rutaV;
         for (int i=0;i<vuelo.size();i++){
             v=vuelo.get(i);
-            dist=v.getDistanciaKm();
+            rutaV=v.getIdRuta();
+            dist=distanciaVuelo(rutaV, ruta);
             if ((dist>=distMin)&&(dist<=distMax)){
                 distanciaVuelo.add(v);
             }
         }
         return distanciaVuelo;
     }
+
 
     // modulo para ver que lee bien los txt
     /*
