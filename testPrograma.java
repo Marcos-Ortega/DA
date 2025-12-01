@@ -14,7 +14,7 @@ public class testPrograma {
     public static void main(String[] args) {
         //Declaracion de variables
         Scanner sc = new Scanner(System.in);
-        int opcion,sinHorario=0;
+        int opcion,sinHorario=0, distMin, distMax;
         String idVuelo, idAvion,dia, nuevoIdA;
         boolean idValido=false;
 
@@ -123,7 +123,20 @@ public class testPrograma {
                     mostrarAvion(idAvion, avion);
                     break;
                 case 7:
-                    
+                    System.out.println("---------Mostrar vuelos en una determinada distancia--------------");
+                    System.out.println("Ingrese la distancia minima que desea recorrer:");
+                    distMin=sc.nextInt();
+                    System.out.println("Ingrese la distancia maxima que desea recorrer:");
+                    distMax=sc.nextInt();
+                    List<Vuelo> distanciaVuelo = new ArrayList<>();
+                    distanciaVuelo=buscarVueloDist(distMin, distMax, vuelo, distanciaVuelo);
+                    if (distanciaVuelo.isEmpty()) {
+                        System.out.println("No hay ningun vuelo que recorra ese rango de distancia.");
+                    } else {
+                        for(int i = 0; i < distanciaVuelo.size(); i++){
+                            System.out.println(distanciaVuelo.get(i));
+                        }
+                    }
                     break;
                 case 8:
                     System.out.println("---------Ver cantidad de horarios sin vuelos--------------");
@@ -138,6 +151,19 @@ public class testPrograma {
             }
         } while (opcion != 0);
         sc.close();
+    }
+    //modulo distancia
+    public static List<Vuelo> buscarVueloDist(int distMin, int distMax,List<Vuelo> vuelo, List<Vuelo> distanciaVuelo){
+        Vuelo v;
+        int dist=0;
+        for (int i=0;i<vuelo.size();i++){
+            v=vuelo.get(i);
+            dist=v.getDistanciaKm();
+            if ((dist>=distMin)&&(dist<=distMax)){
+                distanciaVuelo.add(v);
+            }
+        }
+        return distanciaVuelo;
     }
 
     // modulo para ver que lee bien los txt
