@@ -12,40 +12,80 @@ import java.io.BufferedWriter;
 public class testPrograma {
 
     public static void main(String[] args) {
+        //Declaracion de variables
         Scanner sc = new Scanner(System.in);
         int opcion;
-        String idVuelo, idAvion,dia;
-        List<Avion> avion = new ArrayList<>(); /* creo lista de arreglo de tipo Avion con el nombre de avion */
-        List<Ruta> ruta = new ArrayList<>(); /* creo lista de arreglo de tipo Ruta con el nombre de ruta */
+        String idVuelo, idAvion,dia, nuevoIdA;
+        boolean idValido=false;
+
+        //Creando listas de arreglo de los tipos correspondientes:
+        List<Avion> avion = new ArrayList<>(); 
+        List<Ruta> ruta = new ArrayList<>();
         List<Vuelo> vuelo = new ArrayList<>();
+
+        //Cargo las listas creadas
         cargarAvion(avion);
         cargarRuta(ruta);
         cargarVuelo(vuelo);
         Vuelo[][] matVuelo = new Vuelo[7][15];// defino matriz de vuelo 
         matVuelo = cargaMatVuelo(matVuelo, vuelo);
-        // mostrarMatVuelo(matVuelo);// llamo al sout para ver mi matriz de vuelo
-        // mostrarDatosCargados(avion, ruta, vuelo);//llamo sout para ver si lee bien
-        // los txt
+
+        // llamo al sout para ver mi matriz de vuelo
+        // mostrarMatVuelo(matVuelo);
+        //llamo sout para ver si lee bien los txt
+        // mostrarDatosCargados(avion, ruta, vuelo);
 
         do {
             // Menu de opciones
             System.out.println("Ingresar opcion ");
+            //Punto 2
             System.out.println("1-Agregar nuevo avion.");
+            //Punto 3
             System.out.println("2-Agregar nuevo vuelo");
+            //Punto 4
             System.out.println("3-Marcar aterrizaje de vuelo.");
+            //Punto 5
             System.out.println("4-Ver promedio de pasajeros.");
+            //Punto 6
             System.out.println("5-Mostrar lista de vuelos ordenada.");
+            //Punto 7
             System.out.println("6-Mostrar datos de un avion.");
-            System.out.println("7-Ver cuando le toca el proximo mantenimiento a un cierto avion");
-            System.out.println("8-Salir");
+            //Punto 8
+            System.out.println("7-Dado una distancia dar vuelos.");
+            //Punto 9
+            System.out.println("8-Cantidad de horarios sin vuelos en la semana. ");
+            //Punto 10
+            System.out.println("9-Mostrar primer vuelo internacional del dia.");
+
+            System.out.println("0-Salir");
             opcion = sc.nextInt();
             sc.nextLine();
             switch (opcion) {
                 case 1:
-                    
+                    System.out.println("---------Ingresar un nuevo avion--------------");
+                    do{
+                        System.out.println("Ingrese el id del nuevo avion:");
+                        nuevoIdA=sc.nextLine();
+                        idValido=validarIdA(nuevoIdA, avion);
+                    }while(!idValido);
+                    System.out.println("Ingrese el modelo del Avion:");
+                    System.out.println("Ingrese la cantidad de asientos del Avion:");
+                    System.out.println("Ingrese la cantidad de vuelos que realizo el Avion: ");
+                    System.out.println("Ingrese la cantidad de kilometros recorridos por el Avion:");
 
                     break;
                 case 2:
+                    System.out.println("---------Ingresar un nuevo vuelo--------------");
+                    System.out.println("Ingrese el numero de vuelo");
+                    do{
+                        System.out.println("Ingrese el id del avion del vuelo:");
+                        nuevoIdA=sc.nextLine();
+                        idValido=validarIdA(nuevoIdA, avion);
+                    }while(!idValido);
+                    System.out.println("Ingrese el modelo del Avion:");
+                    System.out.println("Ingrese la cantidad de asientos del Avion:");
+                    System.out.println("Ingrese la cantidad de vuelos que realizo el Avion: ");
+                    System.out.println("Ingrese la cantidad de kilometros recorridos por el Avion:");
 
                     break;
                 case 3:
@@ -126,6 +166,7 @@ public class testPrograma {
      * System.out.println("\n----------------------------\n");
      * }
      */
+
 
     // modulo que me cambia los dias a filas
     public static int DiaAFila(String dia) {
