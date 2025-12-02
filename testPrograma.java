@@ -12,9 +12,11 @@ public class testPrograma {
     public static void main(String[] args) {
         // Declaracion de variables
         Scanner sc = new Scanner(System.in);
-        int opcion, sinHorario = 0, distMin, distMax, cantAsientosNueA, cantVuelosNueA;
-        String idVuelo, idAvion, dia, nuevoIdA, modeloNuevoA, idAnuevoV, idRnuevoV, diaNuevoV, horaNuevoV,nuevoNroVuelo;
-        boolean idValido = false, idAvueValido = false, rutaValida = false, diaValido = false, horaValida = false,idAVuelo = false, nroVueloValido = false;
+        int opcion, sinHorario = 0, distMin, distMax, cantAsientosNueA, cantVuelosNueA,diaVuelo;
+        String idVuelo, idAvion, dia, nuevoIdA, modeloNuevoA, idAnuevoV, idRnuevoV, diaNuevoV, horaNuevoV,
+                nuevoNroVuelo;
+        boolean idValido = false, idAvueValido = false, rutaValida = false, diaValido = false, horaValida = false,
+                idAVuelo = false, nroVueloValido = false, vueloHoraDia=false,yaVolo=false;
         double cantKmRecoNueA;
 
         // Creando listas de arreglo de los tipos correspondientes:
@@ -23,14 +25,14 @@ public class testPrograma {
         List<Vuelo> vuelo = new ArrayList<>();
 
         // Cargo las listas creadas
-        cargarAvion(avion); //linea 900
-        cargarRuta(ruta); //linea 930
-        cargarVuelo(vuelo); //linea 964
+        cargarAvion(avion); // linea 900
+        cargarRuta(ruta); // linea 930
+        cargarVuelo(vuelo); // linea 964
 
         // defino matriz de vuelo
         Vuelo[][] matVuelo = new Vuelo[7][15];
-        //cargo matriz linea
-        matVuelo = cargaMatVuelo(matVuelo, vuelo); //linea 996
+        // cargo matriz linea
+        matVuelo = cargaMatVuelo(matVuelo, vuelo); // linea 996
 
         // llamo al sout para ver mi matriz de vuelo linea 833
         // mostrarMatVuelo(matVuelo);
@@ -61,20 +63,20 @@ public class testPrograma {
             System.out.println("0-Salir");
             opcion = sc.nextInt();
             sc.nextLine();
-            
-            //Switch para que me lea la opcion que el usuario desea
+
+            // Switch para que me lea la opcion que el usuario desea
             switch (opcion) {
                 case 0:
-                    //termina
+                    // termina
                     System.out.println("Saliendo.");
                     break;
                 case 1:
-                    //Agregar un nuevo avion al arrayList de avion punto 2
+                    // Agregar un nuevo avion al arrayList de avion punto 2
                     System.out.println("---------Ingresar un nuevo avion--------------");
                     do {
                         System.out.println("Ingrese un id valido para el nuevo avion:");
                         nuevoIdA = sc.nextLine();
-                        //valido que la estructura del id ingresado sea valido // linea 266
+                        // valido que la estructura del id ingresado sea valido // linea 266
                         idValido = validarFormatoIdA(nuevoIdA);
                         if (idValido) {
                             // si el id es valido verifico que no sea igual al de otr avion /// linea 355
@@ -82,12 +84,12 @@ public class testPrograma {
                             if (!idValido) {
                                 System.out.println("Ya existe un avion con ese id.");
                             }
-                        }else{
+                        } else {
                             System.out.println("id invalido.");
                         }
                     } while (!idValido);
 
-                    //una vez que se agrego un id valido y unico pido el resto de datos
+                    // una vez que se agrego un id valido y unico pido el resto de datos
                     System.out.println("Ingrese el modelo del Avion:");
                     modeloNuevoA = sc.nextLine();
                     System.out.println("Ingrese la cantidad de asientos del Avion:");
@@ -97,19 +99,20 @@ public class testPrograma {
                     System.out.println("Ingrese la cantidad de kilometros recorridos por el Avion:");
                     cantKmRecoNueA = sc.nextDouble();
 
-                    //Agrego un nuevo avion al arrayList
+                    // Agrego un nuevo avion al arrayList
                     avion.add(new Avion(nuevoIdA, modeloNuevoA, cantAsientosNueA, cantVuelosNueA, cantKmRecoNueA));
                     System.out.println("Avion nuevo cargado");
                     break;
                 case 2:
-                    //agregar un nuevo vuelo al arayList de vuelo punto3
+                    // agregar un nuevo vuelo al arayList de vuelo punto3
                     System.out.println("---------Ingresar un nuevo vuelo--------------");
                     do {
                         System.out.println("Ingrese un numero de vuelo no existente:");
                         nuevoNroVuelo = sc.nextLine();
-                        //despues de ingresar el numero lo concateno a la condicon de numero de vuelo "AR"
-                        nuevoNroVuelo = "AR"+nuevoNroVuelo;
-                        //valido que el numero de ruta ingresado sea nuevo linea 369
+                        // despues de ingresar el numero lo concateno a la condicon de numero de vuelo
+                        // "AR"
+                        nuevoNroVuelo = "AR" + nuevoNroVuelo;
+                        // valido que el numero de ruta ingresado sea nuevo linea 369
                         nroVueloValido = validarNumVuelo(nuevoNroVuelo, vuelo);
                         if (!nroVueloValido) {
                             System.out.println("ya existe ese numero.");
@@ -118,26 +121,28 @@ public class testPrograma {
                     do {
                         System.out.println("Ingrese un id valido de un avion existente:");
                         idAnuevoV = sc.nextLine();
-                        //vuelvo a utilizar codigo que me  valide el formato del id del avion linea 266
+                        // vuelvo a utilizar codigo que me valide el formato del id del avion linea 266
                         idAvueValido = validarFormatoIdA(idAnuevoV);
                         if (idAvueValido) {
-                            //si el id es valido me fijo que sea un avion  que ya existe utilizando el mismo modulo que en el punto 2 linea 355
+                            // si el id es valido me fijo que sea un avion que ya existe utilizando el mismo
+                            // modulo que en el punto 2 linea 355
                             idAVuelo = validarIdA(idAnuevoV, avion);
                             if (!idAVuelo) {
-                                //si el avion existe se puede seguir con la carga del nuevo vuelo
+                                // si el avion existe se puede seguir con la carga del nuevo vuelo
                                 idAvueValido = true;
                             } else {
                                 System.out.println("Error: El avion no existe en el sistema.");
-                                idAvueValido = false; //forzamos a repetir el bucle
+                                idAvueValido = false; // forzamos a repetir el bucle
                             }
-                        }else{
+                        } else {
                             System.out.println("id invalido.");
                         }
                     } while (!idAvueValido);
                     do {
                         System.out.println("Ingrese un id de ruta existente:");
                         idRnuevoV = sc.nextLine();
-                        //verifico que la ruta ingresada exista para seguir con la carga del nuevo vuelo linea 383
+                        // verifico que la ruta ingresada exista para seguir con la carga del nuevo
+                        // vuelo linea 383
                         rutaValida = validarIdRuta(idRnuevoV, ruta);
                         if (!rutaValida) {
                             System.out.println("no existe esa ruta.");
@@ -146,78 +151,94 @@ public class testPrograma {
                     do {
                         System.out.println("Ingrese dia valido para el nuevo vuelo:");
                         diaNuevoV = sc.nextLine();
-                        //verifico que se ingrese un dia de la semana bien escrito linea 397
+                        // verifico que se ingrese un dia de la semana bien escrito linea 397
                         diaValido = validDia(diaNuevoV);
                     } while (!diaValido);
                     do {
                         System.out.println("Ingrese una hora valida (desde 09:00 hasta 21:00) para el nuevo vuelo:");
                         horaNuevoV = sc.nextLine();
-                        //verifico que se ingrese una hora entre las 9am y 21 pm y que sea en un formato valido linea 429
+                        // verifico que se ingrese una hora entre las 9am y 21 pm y que sea en un
+                        // formato valido linea 429
                         horaValida = validarHoraNueV(horaNuevoV);
                         if (!horaValida) {
                             System.out.println("hora invalida");
                         }
                     } while (!horaValida);
-                    //agrego al array list un nuevo vuelo con todos los datos anteriores
-                    vuelo.add(new Vuelo(nuevoNroVuelo, idAnuevoV, idRnuevoV, diaNuevoV, horaNuevoV, false));
-                    System.out.println("Vuelo nuevo cargado");
+                    vueloHoraDia=verficarHorarioDia(vuelo, diaNuevoV, horaNuevoV);
+                    diaVuelo=DiaAFila(diaNuevoV);
+                    yaVolo=avionVoloDia(matVuelo, diaVuelo, idAnuevoV);
+                    if(!(vueloHoraDia) && !(yaVolo)){
+                        // agrego al array list un nuevo vuelo con todos los datos anteriores
+                        vuelo.add(new Vuelo(nuevoNroVuelo, idAnuevoV, idRnuevoV, diaNuevoV, horaNuevoV, false));
+                        System.out.println("Vuelo nuevo cargado");
+                    }
+                    else if((yaVolo) && !(vueloHoraDia)){
+                        System.out.println("El avion ya volo ese dia.");
+                    }
+                    else{
+                        System.out.println("Ya hay un vuelo cargado ese dia.");
+                    }
                     break;
                 case 3:
-                    //marco a un vuelo ingresado como realizado punto 4 y le sumo un vuelo mas al avion y le sumo los km de la ruta 
+                    // marco a un vuelo ingresado como realizado punto 4 y le sumo un vuelo mas al
+                    // avion y le sumo los km de la ruta
                     System.out.println("---------Cambiar Estado de vuelo--------------");
                     System.out.println("Ingrese el id del vuelo: ");
                     idVuelo = sc.nextLine();
-                    //Modulo que busca al vuelo e incrementa km y otro vuelo linea 444
+                    // Modulo que busca al vuelo e incrementa km y otro vuelo linea 444
                     cambiarEstadoVuelo(idVuelo, vuelo, ruta, avion);
                     break;
                 case 4:
-                    //a partir de un vuelo hago el promedio de todos los pasajeros que volaron punto 5
+                    // a partir de un vuelo hago el promedio de todos los pasajeros que volaron
+                    // punto 5
                     System.out.println("---------Ver promedio de pasajeros--------------");
-                    System.out.println("Ingrese el numero de vuelo: ");
-                    idVuelo = sc.nextLine();
-                    //modulo que me busca el vuelo se fija si se realizo y calcula el promedio linea 504
-                    mostrarPromedio(vuelo, avion, idVuelo);
+                    // modulo que me busca el vuelo se fija si se realizo y calcula el promedio
+                    // linea 504
+                    mostrarPromedio(vuelo, avion);
                     break;
                 case 5:
-                    // ordeno los vuelos de un dia de la semana indicado con un metodo de ordenamiento punto 6
+                    // ordeno los vuelos de un dia de la semana indicado con un metodo de
+                    // ordenamiento punto 6
                     System.out.println("---------Lista de Vuelos Ordenada--------------");
                     System.out.println("Ingrese el dia que quiere ordenar: ");
                     dia = sc.nextLine();
-                    //llamo al modulo con el metodo de ordenamiento linea 516
+                    // llamo al modulo con el metodo de ordenamiento linea 516
                     mostrarVuelosOrdenados(matVuelo, ruta, dia);
                     break;
                 case 6:
                     // muestro todos los datos de un avion indicado punto 7
-                    boolean esvalido=false;
+                    boolean esvalido = false;
                     System.out.println("---------Mostrar datos de un avion--------------");
-                    do{
+                    do {
                         System.out.println("Ingrese el id del Avion: ");
                         idAvion = sc.nextLine();
-                        //vuelo a llamar modulo que verifica formato de id correcto linea 266
-                        esvalido=validarFormatoIdA(idAvion);
-                        if(!esvalido){
+                        // vuelo a llamar modulo que verifica formato de id correcto linea 266
+                        esvalido = validarFormatoIdA(idAvion);
+                        if (!esvalido) {
                             System.out.println("formato de id invalido");
                         }
-                    }while(!esvalido);
-                    //llamo al modulo que busca si el avion con ese id existe y muestra los datos de el linea 644
+                    } while (!esvalido);
+                    // llamo al modulo que busca si el avion con ese id existe y muestra los datos
+                    // de el linea 644
                     mostrarAvion(idAvion, avion);
                     break;
                 case 7:
-                    // con un minimo y un maximo que me forma un rango me da todos lso vuelos que sus distancias estan dentro de ese rango punto 8
+                    // con un minimo y un maximo que me forma un rango me da todos lso vuelos que
+                    // sus distancias estan dentro de ese rango punto 8
                     System.out.println("---------Mostrar vuelos en una determinada distancia--------------");
                     System.out.println("Ingrese la distancia minima que desea recorrer:");
                     distMin = sc.nextInt();
                     System.out.println("Ingrese la distancia maxima que desea recorrer:");
                     distMax = sc.nextInt();
-                    //creo un arrayList para guardar todos los vuelos que estan dentro de ese rango
+                    // creo un arrayList para guardar todos los vuelos que estan dentro de ese rango
                     List<Vuelo> mostrarDistVuelo = new ArrayList<>();
-                    //llamo a mi modulo que carga el arrayList con los vuelos linea 661
+                    // llamo a mi modulo que carga el arrayList con los vuelos linea 661
                     mostrarDistVuelo = buscarVueloDist(distMin, distMax, vuelo, mostrarDistVuelo, ruta);
-                    //si mi arrayList esta vacio entra aca
+                    // si mi arrayList esta vacio entra aca
                     if (mostrarDistVuelo.isEmpty()) {
                         System.out.println("No hay ningun vuelo que recorra ese rango de distancia.");
                     } else {
-                        //si no esta vacio lo recorre y muestra vuelos que estan dentro del rango
+                        // si no esta vacio lo recorre y muestra vuelos que estan dentro del rango
                         for (int i = 0; i < mostrarDistVuelo.size(); i++) {
                             System.out.println();
                             System.out.println("Los vuelos en ese rango de distancia son:");
@@ -226,42 +247,60 @@ public class testPrograma {
                     }
                     break;
                 case 8:
-                    //veo en mi matriz la cantidad de horarios en la semana que estan vacios punto 9
+                    // veo en mi matriz la cantidad de horarios en la semana que estan vacios punto
+                    // 9
                     System.out.println("---------Ver cantidad de horarios sin vuelos--------------");
-                    //llamo a mi modulo que cuenta los espacios vacios en la matriz para despues mostrarlo linea 678
+                    // llamo a mi modulo que cuenta los espacios vacios en la matriz para despues
+                    // mostrarlo linea 678
                     sinHorario = horarioSinVuelosRec(matVuelo, 0, 0);
                     System.out.println("La cantidad de horarios sin vuelos son: " + sinHorario);
                     break;
                 case 9:
-                    //muestro el primer vuelo internacional de cada dia punto 10
-                    //creo array para guardar mi vuelo por dia
+                    // muestro el primer vuelo internacional de cada dia punto 10
+                    // creo array para guardar mi vuelo por dia
                     Vuelo[] arrVueloInter = new Vuelo[7];
                     System.out.println("---------Primer vuelo internacional del dia--------------");
-                    //modulo que carga mi matriz con el primer vuelo internacional linea 694
+                    // modulo que carga mi matriz con el primer vuelo internacional linea 694
                     arrVueloInter = vueloInternaciona(matVuelo, ruta, arrVueloInter);
                     for (int i = 0; i < arrVueloInter.length; i++) {
-                        //paso de numero a dia para emitir un mensaje claro linea 739
+                        // paso de numero a dia para emitir un mensaje claro linea 739
                         dia = cambioAdia(i);
-                        //si la posicion de mi array donde estoy no es vacia muestra el vuelo
+                        // si la posicion de mi array donde estoy no es vacia muestra el vuelo
                         if (arrVueloInter[i] != null) {
                             System.out.println("El primer vuelo internacional del " + dia + " es:");
                             System.out.println(arrVueloInter[i]);
                             System.out.println();
                         } else {
-                            //si la posicion es nula dice que en ese dia n hay vuelos internacionales
+                            // si la posicion es nula dice que en ese dia n hay vuelos internacionales
                             System.out.println("El dia " + dia + " hay vuelos internacionales.");
                         }
                     }
                     break;
                 default:
-                    //Si no ingresa un numero valido entra aca
+                    // Si no ingresa un numero valido entra aca
                     System.out.println("Opcion Invalida. Ingresar opcion valida");
                     break;
             }
         } while (opcion != 0);
         sc.close();
     }
-
+    //modulo para verficar horario y dia de vuelo.
+    public static boolean verficarHorarioDia (List<Vuelo> vuelo, String dia, String hora){
+        boolean encontrado = true;
+        int i=0;
+        String diaV,horaV;
+        Vuelo v;
+        while (i<vuelo.size() && encontrado){
+            v=vuelo.get(i);
+            diaV=v.getDia();
+            horaV=v.getHora();
+            if(hora == horaV && dia == diaV){
+                encontrado = false;
+            }
+            i++;
+        }
+        return encontrado;
+    }
     // verificar que el formato del ID AVION sea valido
     public static boolean validarFormatoIdA(String nuevoIdA) {
         boolean idValido = true, encontrado = false;
@@ -351,6 +390,7 @@ public class testPrograma {
         }
         return idValido;
     }
+
     // comparar ID avion si ya existe
     public static boolean validarIdA(String nuevoIda, List<Avion> avion) {
         boolean valido = true;
@@ -365,6 +405,7 @@ public class testPrograma {
         }
         return valido;
     }
+
     // validar que no exista otro vuelo con ese numero
     public static boolean validarNumVuelo(String nuevoNroVuelo, List<Vuelo> vuelo) {
         boolean valido = true;
@@ -379,6 +420,7 @@ public class testPrograma {
         }
         return valido;
     }
+
     // validar que exista ese id de ruta
     public static boolean validarIdRuta(String idRnuevoV, List<Ruta> ruta) {
         int i = 0;
@@ -393,6 +435,7 @@ public class testPrograma {
         }
         return valido;
     }
+
     // validar dia
     public static boolean validDia(String diaNuevoV) {
         boolean valido = false;
@@ -425,6 +468,7 @@ public class testPrograma {
         }
         return valido;
     }
+
     // validar hora de vuelo
     public static boolean validarHoraNueV(String horaNuevoV) {
         boolean valida = false;
@@ -439,7 +483,7 @@ public class testPrograma {
         }
         return valida;
     }
-    
+
     // modulo para cambiar el estado del vuelo
     public static void cambiarEstadoVuelo(String idVueloAct, List<Vuelo> vuelo, List<Ruta> ruta, List<Avion> avion) {
         int i = 0;
@@ -448,18 +492,19 @@ public class testPrograma {
         boolean encontrado = false;
         double cantidadKm;
         while (((i < vuelo.size()) && (!encontrado))) {
-            //extraigo vuelo en esa posicion
+            // extraigo vuelo en esa posicion
             v = vuelo.get(i);
-            //extraigo id avion de ese vuelo
+            // extraigo id avion de ese vuelo
             idAvion = v.getIdAvion();
-            //extraigo id ruta de ese vuelo
+            // extraigo id ruta de ese vuelo
             idRuta = v.getIdRuta();
             if (idVueloAct.equals(v.getNroVuelo())) {
                 encontrado = true;
                 v.setRealizado(true);
-                //llamo modulo que me extrae distancia linea 473
+                // llamo modulo que me extrae distancia linea 473
                 cantidadKm = distanciaVuelo(idRuta, ruta);
-                //llamo a modulo que realiza actualizacion de distantacia y suma uno a cantVuelo linea 489
+                // llamo a modulo que realiza actualizacion de distantacia y suma uno a
+                // cantVuelo linea 489
                 actAvion(idAvion, avion, cantidadKm);
                 System.out.println("Vuelo actualizado con exito!");
             }
@@ -469,6 +514,7 @@ public class testPrograma {
             System.out.println("Vuelo no encontrado");
         }
     }
+
     // Modulo para obtener la distancia del vuelo.
     public static double distanciaVuelo(String idRuta, List<Ruta> ruta) {
         int i = 0;
@@ -485,6 +531,7 @@ public class testPrograma {
         }
         return distanciaKm;
     }
+
     // modulo para actualizar los km y los vuelos del avion
     public static void actAvion(String idAvion, List<Avion> avion, double cantidadKm) {
         int i = 0;
@@ -500,22 +547,24 @@ public class testPrograma {
             i++;
         }
     }
-    // modulo para calcular promedio
-    public static void mostrarPromedio(List<Vuelo> vuelo, List<Avion> avion, String idVuelo) {
-        // cuenta los pasajeros recursivamente linea 771
-        double[] promedio = pasajerosRec(vuelo, avion, idVuelo, 0); // promedio[0] pasajeros, promedio[1] vuelo
-        double prom;
 
-        if (promedio[1] == 0) {
-            System.out.println("El vuelo " + idVuelo + " no existe o no fue realizado");
-        } else {
+    // modulo para calcular promedio
+    public static void mostrarPromedio(List<Vuelo> vuelo, List<Avion> avion) {
+        // cuenta los pasajeros recursivamente linea 771
+        double[] promedio = pasajerosRec(vuelo, avion, 0); // promedio[0] pasajeros, promedio[1] vuelo
+        double prom;
+        if(promedio[1]==0){
+            System.out.println("No ha aterrizado o realizado ningun vuelo.");
+        }
+        else{
             prom = promedio[0] / promedio[1];
-            System.out.println("El promedio de pasajeros que volaron en el vuelo " + idVuelo + " es: " + prom);
+            System.out.println("El promedio de pasajeros que volaron es: " + prom);
         }
     }
-    //muestros vuelos ordenados con metodo de ordenamiento
+
+    // muestros vuelos ordenados con metodo de ordenamiento
     public static void mostrarVuelosOrdenados(Vuelo[][] matVuelo, List<Ruta> ruta, String dia) {
-        //pasa de un dia a una posicion int de matriz linea 546
+        // pasa de un dia a una posicion int de matriz linea 546
         int fila = DiaAFila(dia);
         double km;
         List<Vuelo> lista = new ArrayList<>();
@@ -527,9 +576,9 @@ public class testPrograma {
                 }
             }
             if (!(lista.isEmpty())) {
-                //llamo a mi modulo de metodo de ordenamiento linea 578
+                // llamo a mi modulo de metodo de ordenamiento linea 578
                 lista = mergeSort(lista, ruta);
-                //escribe en txt linea 628
+                // escribe en txt linea 628
                 guardarArchivo(lista, dia);
                 System.out.println("Vuelos Ordenados: ");
                 for (Vuelo v : lista) {
@@ -544,9 +593,10 @@ public class testPrograma {
             }
         }
     }
+
     // modulo que me cambia los dias a filas
     public static int DiaAFila(String dia) {
-        int diaV = 0;
+        int diaV = -1;
         switch (dia.toLowerCase()) {
             case "lunes":
                 diaV = 0;
@@ -576,34 +626,42 @@ public class testPrograma {
         }
         return diaV;
     }
+
     // metodo de ordenamiento
     public static List<Vuelo> mergeSort(List<Vuelo> arregloVuelo, List<Ruta> ruta) {
         int mitad;
         List<Vuelo> listaVuelo = new ArrayList<>();
         if (arregloVuelo.size() > 1) {
             mitad = arregloVuelo.size() / 2;
-            List<Vuelo> arregloIzquierdo = new ArrayList<>(arregloVuelo.subList(0, mitad));// creo arreglo izq divindiendo el origianl
-            List<Vuelo> arregloDerecho = new ArrayList<>(arregloVuelo.subList(mitad, arregloVuelo.size()));// creo arreglo derecho divindiendo el origianl
+            List<Vuelo> arregloIzquierdo = new ArrayList<>(arregloVuelo.subList(0, mitad));// creo arreglo izq
+                                                                                           // divindiendo el origianl
+            List<Vuelo> arregloDerecho = new ArrayList<>(arregloVuelo.subList(mitad, arregloVuelo.size()));// creo
+                                                                                                           // arreglo
+                                                                                                           // derecho
+                                                                                                           // divindiendo
+                                                                                                           // el
+                                                                                                           // origianl
             arregloIzquierdo = mergeSort(arregloIzquierdo, ruta);
             arregloDerecho = mergeSort(arregloDerecho, ruta);
-            //llama al modulo que hace lod dos arreglos y compara linea 594
+            // llama al modulo que hace lod dos arreglos y compara linea 594
             listaVuelo = merge(arregloIzquierdo, arregloDerecho, ruta);
         } else {
             listaVuelo = arregloVuelo;
         }
         return listaVuelo;
     }
+
     public static List<Vuelo> merge(List<Vuelo> arregloIzquierdo, List<Vuelo> arregloDerecho, List<Ruta> ruta) {
         List<Vuelo> aux = new ArrayList<>();
         int i = 0, j = 0;
-        Vuelo vuelo = arregloIzquierdo.get(i), vuelo2 = arregloDerecho.get(j);
+        Vuelo vuelo, vuelo2;
         ;
         double distancia1, distancia2;
         // mientras haya elementos en ambas listas, repito
         while ((i < arregloIzquierdo.size()) && (j < arregloDerecho.size())) {
             vuelo = arregloIzquierdo.get(i);
             vuelo2 = arregloDerecho.get(j);
-            //extraigo distancias de vvuelos linea 473
+            // extraigo distancias de vvuelos linea 473
             distancia1 = distanciaVuelo(vuelo.getIdRuta(), ruta);
             distancia2 = distanciaVuelo(vuelo2.getIdRuta(), ruta);
             if (distancia1 <= distancia2) { // comparo las distancias
@@ -626,6 +684,7 @@ public class testPrograma {
         }
         return aux;
     }
+
     private static void guardarArchivo(List<Vuelo> vuelo, String dia) {
         try {
             String nombreArchivo = "VuelosOrdenados-" + dia + ".txt";
@@ -641,6 +700,7 @@ public class testPrograma {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
     // Mostrar datos de un avion
     public static void mostrarAvion(String idAvion, List<Avion> avion) {
         int i = 0;
@@ -658,6 +718,7 @@ public class testPrograma {
             System.out.println("Avion no encontrado");
         }
     }
+
     // modulo distancia
     public static List<Vuelo> buscarVueloDist(int distMin, int distMax, List<Vuelo> vuelo, List<Vuelo> distanciaVuelo,
             List<Ruta> ruta) {
@@ -675,6 +736,7 @@ public class testPrograma {
         }
         return distanciaVuelo;
     }
+
     // modulo para calcular recursivamente horarios sin vuelos
     public static int horarioSinVuelosRec(Vuelo[][] matVuelo, int i, int j) {
         int cantidad = 0;
@@ -691,7 +753,9 @@ public class testPrograma {
         }
         return cantidad;
     }
-    //modulo que recorre todos los dias de mi matriz y las columnas hasta encontrar un destino internacional y guarda los vuelos
+
+    // modulo que recorre todos los dias de mi matriz y las columnas hasta encontrar
+    // un destino internacional y guarda los vuelos
     public static Vuelo[] vueloInternaciona(Vuelo[][] matVuelo, List<Ruta> ruta, Vuelo[] arrVueloInter) {
         int j;
         Vuelo vInter = null;
@@ -704,7 +768,7 @@ public class testPrograma {
                 if (matVuelo[i][j] != null) {
                     vInter = matVuelo[i][j];
                     rutaV = vInter.getIdRuta();
-                    //valida si la ruta del vuelo es internacional linea 722
+                    // valida si la ruta del vuelo es internacional linea 722
                     inter = vueloEsInter(rutaV, ruta);
                     if (inter) {
                         encontrado = true;
@@ -719,7 +783,8 @@ public class testPrograma {
 
         return arrVueloInter;
     }
-    //verifica si la ruta es de un vuelo internacional
+
+    // verifica si la ruta es de un vuelo internacional
     public static boolean vueloEsInter(String rutaV, List<Ruta> ruta) {
         Ruta r;
         int i = 0;
@@ -736,6 +801,7 @@ public class testPrograma {
         return encontrado;
 
     }
+
     // cambio dia
     public static String cambioAdia(int i) {
         String dia = "";
@@ -768,29 +834,31 @@ public class testPrograma {
         }
         return dia;
     }
+
     // mostrar y calcular el promedio de pasajeros recursivamente
-    public static double[] pasajerosRec(List<Vuelo> vuelo, List<Avion> avion, String idVuelo, int i) {
+    public static double[] pasajerosRec(List<Vuelo> vuelo, List<Avion> avion, int i) {
         double[] pasajeros = new double[2];
+        // casob
         if (i == vuelo.size()) {
             pasajeros[0] = 0;
             pasajeros[1] = 0;
         } else {
             Vuelo v = vuelo.get(i);
-            pasajeros = pasajerosRec(vuelo, avion, idVuelo, i + 1);
-            if (v.getNroVuelo().equals(idVuelo)) {
-                //busca aviones recursivamente linea 795
-                Avion a = buscarAvionRec(v.getIdAvion(), avion, 0);
-                if (v.getRealizado()) {// verifico si el vuelo ya fue hecho
-                    if (a != null) {
-                        pasajeros[0] += a.getCantAsientos();// suma pasajeros
-                        pasajeros[1] += 1;// suma vuelo
-                    }
+            pasajeros = pasajerosRec(vuelo, avion, i + 1);
+            // busca aviones recursivamente linea 795
+            Avion a = buscarAvionRec(v.getIdAvion(), avion, 0);
+            if (v.getRealizado()) {// verifico si el vuelo ya fue hecho
+                if (a != null) {
+                    pasajeros[0] += a.getCantAsientos();// suma pasajeros
+                    pasajeros[1] += 1;// suma vuelo
                 }
             }
+
         }
 
         return pasajeros;
     }
+
     // modulo para buscar el avion de forma recursiva
     public static Avion buscarAvionRec(String idAvion, List<Avion> avion, int i) {
         Avion a, encontrado;
@@ -806,7 +874,7 @@ public class testPrograma {
         }
         return encontrado;
     }
-    
+
     // modulo para ver que lee bien los txt
     /*
      * public static void mostrarDatosCargados(List<Avion> aviones, List<Ruta>
@@ -828,7 +896,6 @@ public class testPrograma {
      * }
      * }
      */
-
 
     // sout para ver los vuelos en mi matriz
     /*
@@ -855,8 +922,6 @@ public class testPrograma {
      * System.out.println("\n----------------------------\n");
      * }
      */
-
-    
 
     // modulo que me cambia las horas a columnas
     public static int horaAColumna(String hora) {
@@ -946,7 +1011,7 @@ public class testPrograma {
                     // guardo el string del txt y llamo al moduo para devolver el v/f de
                     // internacional
                     String internacional = bloque[4];
-                    //modulo que se fija si el vuelo es internacional o no linea 890
+                    // modulo que se fija si el vuelo es internacional o no linea 890
                     boolean esInternacional = esInter(internacional);
                     // Almaceno en la lista
                     ruta.add(new Ruta(numRuta, ciudadOrigen, ciudadDestino, distanciaKm, esInternacional));
@@ -1000,12 +1065,12 @@ public class testPrograma {
         boolean yaVolo = false;
         for (int i = 0; i < vuelos.size(); i++) {
             v = vuelos.get(i);
-            //cambia dias a fila linea 548
+            // cambia dias a fila linea 548
             fila = DiaAFila(v.getDia());
-            //cambia hora a columna linea 862
+            // cambia hora a columna linea 862
             colum = horaAColumna(v.getHora());
             if (matVuelo[fila][colum] == null) {
-                //se fija si ese avion ya volo ese dia fila 871
+                // se fija si ese avion ya volo ese dia fila 871
                 yaVolo = avionVoloDia(matVuelo, fila, v.getIdAvion());
                 if (!yaVolo) {
                     matVuelo[fila][colum] = v;
@@ -1016,5 +1081,4 @@ public class testPrograma {
         return matVuelo;
     }
 
-    
 }
