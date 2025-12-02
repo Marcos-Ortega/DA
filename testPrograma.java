@@ -167,12 +167,12 @@ public class testPrograma {
                     vueloHoraDia=verficarHorarioDia(vuelo, diaNuevoV, horaNuevoV);
                     diaVuelo=DiaAFila(diaNuevoV);
                     yaVolo=avionVoloDia(matVuelo, diaVuelo, idAnuevoV);
-                    if(!(vueloHoraDia) && !(yaVolo)){
+                    if(vueloHoraDia && !yaVolo){
                         // agrego al array list un nuevo vuelo con todos los datos anteriores
                         vuelo.add(new Vuelo(nuevoNroVuelo, idAnuevoV, idRnuevoV, diaNuevoV, horaNuevoV, false));
                         System.out.println("Vuelo nuevo cargado");
                     }
-                    else if((yaVolo) && !(vueloHoraDia)){
+                    else if(yaVolo){
                         System.out.println("El avion ya volo ese dia.");
                     }
                     else{
@@ -294,7 +294,7 @@ public class testPrograma {
             v=vuelo.get(i);
             diaV=v.getDia();
             horaV=v.getHora();
-            if(hora == horaV && dia == diaV){
+            if(hora.equals(horaV) && dia.equals(diaV)){
                 encontrado = false;
             }
             i++;
