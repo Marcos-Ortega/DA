@@ -127,8 +127,8 @@ public class testPrograma {
                                 //si el avion existe se puede seguir con la carga del nuevo vuelo
                                 idAvueValido = true;
                             } else {
-                                System.out.println("Error: El avión no existe en el sistema.");
-                                idAvueValido = false; // Forzamos a repetir el bucle
+                                System.out.println("Error: El avion no existe en el sistema.");
+                                idAvueValido = false; //forzamos a repetir el bucle
                             }
                         }else{
                             System.out.println("id invalido.");
@@ -629,7 +629,7 @@ public class testPrograma {
     private static void guardarArchivo(List<Vuelo> vuelo, String dia) {
         try {
             String nombreArchivo = "VuelosOrdenados-" + dia + ".txt";
-            FileWriter archivo = new FileWriter("C:\\Users\\Marcos\\OneDrive\\Escritorio\\DA\\" + nombreArchivo, true);
+            FileWriter archivo = new FileWriter("C:\\Users\\marco\\Desktop\\DA\\" + nombreArchivo, true);
             BufferedWriter escritor = new BufferedWriter(archivo);
             for (Vuelo v : vuelo) {
                 escritor.write(v.getNroVuelo() + ";" + v.getIdAvion() + ";" + v.getIdRuta() + ";" + v.getDia() + ";"
