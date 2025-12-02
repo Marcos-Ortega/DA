@@ -59,7 +59,7 @@ public class Avion {
 
     //propios del tipo
     public String toString() {
-        return this.id + " " + this.modelo + " " + this.cantAsientos + " " + this.kmRec+ " " + this.cantVuelos;
+        return "Id del avion: "+this.id + " Modelo: " + this.modelo + " Cantidad de asientos: " + this.cantAsientos + " Kilometros recorridos: " + this.kmRec+ " Cantidad de vuelos realizados: " + this.cantVuelos;
 
     }
 
